@@ -1,0 +1,64 @@
+body,html{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #ffffff;
+}
+
+.w-50{
+    width: 50%;
+}
+.frm-init {
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    padding: 1.5rem 0.5rem !important;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+}
+.pointer{
+    cursor: pointer;
+}
+.contenedor-principal{
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.backdrop-init{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    /* background-color: rgba(255, 255, 255, 0.1); */
+    background-color: #ffffff;
+}
+
+.new-page{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    overflow-y: auto;
+}
+.cuadro-r{
+    width: 8rem;
+    height: 4rem;
+    overflow:hidden;
+    cursor: pointer;
+}
+.contenedor-alert-1 {
+    width: auto;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.contenedor-alert-1 svg {
+    width: 20px;
+    height: 20px;
+}

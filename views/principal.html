@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./../node_modules/animate.css/animate.min.css">
+    <link rel="stylesheet" href="./../src/public/css/fabric.min.css">
+    <link rel="stylesheet" href="./../src/public/css/fabric.components.min.css">
+    <link rel="stylesheet" href="./../src/public/css/styles.css">
+    <link rel="stylesheet" href="./../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <title>Sistema de Cobro de Agua Potable</title>
+</head>
+<body>
+    <div class="contenedor-principal">
+        <div class="container-fluid mt-2 menu">
+            <div class="w-100 d-flex justify-content-center">
+                <div class="ms-MessageBar">
+                    <div class="ms-MessageBar-content">
+                    <div class="ms-MessageBar-icon">
+                        <i class="ms-Icon ms-Icon--Info"></i>
+                    </div>
+                    <div class="ms-MessageBar-text">
+                        En las secciones inferiores se le presentan las opciones del sistema.
+                        <br />
+                        <span href="#" class="text-primary">Gracias por preferirnos.</span> 
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="w-10 mt-1 d-inline-flex justify-content-around gap-3 flex-wrap">
+                <button id="sector"  class="ms-Button ms-Button--compound d-none">
+                    <i class="ms-Icon ms-Icon--Add text-primary fw-bold h3"></i> 
+                    <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span> 
+                    <span class="ms-Button-label">Agregar Sector</span> 
+                    <span class="ms-Button-description">Ingrese un sector para el cobro de agua</span> 
+                </button>
+
+                <button menu-medium id="add-category" class="ms-Button ms-Button--compound d-none">
+                    <i class="ms-Icon ms-Icon--AddFavorite text-primary fw-bold h3"></i> 
+                    <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span> 
+                    <span class="ms-Button-label">Agregar Categoria</span> 
+                    <span class="ms-Button-description">Ingrese un sector para el cobro de agua</span> 
+                </button>
+
+                <button id="cliente" menu-basic class="ms-Button ms-Button--compound d-none">
+                    <i class="ms-Icon ms-Icon--AddFriend text-primary fw-bold h3"></i> 
+                    <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span> 
+                    <span class="ms-Button-label">Agregar Cliente</span> 
+                    <span class="ms-Button-description">Ingrese un sector para el cobro de agua</span> 
+                </button>
+
+                <button id="casas" class="ms-Button ms-Button--compound d-none">
+                    <i class="ms-Icon ms-Icon--Home text-primary fw-bold h3"></i> 
+                    <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span> 
+                    <span class="ms-Button-label">Agregar Casas</span> 
+                    <span class="ms-Button-description">Ingrese un sector para el cobro de agua</span> 
+                </button>
+
+                <button id="cobros" menu-basic class="ms-Button ms-Button--compound d-none">
+                    <i class="ms-Icon ms-Icon--Calendar text-primary fw-bold h3"></i> 
+                    <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span> 
+                    <span class="ms-Button-label">Realizar Cobros</span> 
+                    <span class="ms-Button-description">Ingrese un sector para el cobro de agua</span> 
+                </button>
+                
+                <button id="consultas" menu-basic class="ms-Button ms-Button--compound d-none">
+                    <i class="ms-Icon ms-Icon--Money text-primary fw-bold h3"></i> 
+                    <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span> 
+                    <span class="ms-Button-label">Consultas Administrativas</span> 
+                    <span class="ms-Button-description">Ingrese un sector para el cobro de agua</span> 
+                </button>
+
+                
+                <button id="compra" class="ms-Button ms-Button--compound d-none">
+                    <i class="ms-Icon ms-Icon--Shop text-primary fw-bold h3"></i> 
+                    <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span> 
+                    <span class="ms-Button-label">Agregar Compra</span>
+                    <span class="ms-Button-description">Ingrese un sector para el cobro de agua</span> 
+                </button>
+
+                <button id="acometida" class="ms-Button ms-Button--compound d-none">
+                    <i class="ms-Icon ms-Icon--AddTo text-primary fw-bold h3"></i> 
+                    <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span> 
+                    <span class="ms-Button-label">Agregar Acometida</span> 
+                    <span class="ms-Button-description">Ingrese un sector para el cobro de agua</span> 
+                </button>
+
+                <button id="medidor" class="ms-Button ms-Button--compound d-none">
+                    <i class="ms-Icon ms-Icon--Clock text-primary fw-bold h3"></i> 
+                    <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span> 
+                    <span class="ms-Button-label">Actualización Medidor</span> 
+                    <span class="ms-Button-description">Ingrese un sector para el cobro de agua</span> 
+                </button>
+                <button id="mora" menu-basic class="ms-Button ms-Button--compound d-none">
+                    <i class="ms-Icon ms-Icon--Attach text-primary fw-bold h3"></i> 
+                    <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span> 
+                    <span class="ms-Button-label">Establecer Mora</span> 
+                    <span class="ms-Button-description">Ingrese un sector para el cobro de agua</span> 
+                </button>
+
+                <button id="respaldo" menu-basic class="ms-Button ms-Button--compound d-none">
+                    <i class="ms-Icon ms-Icon--DataConnectionLibrary text-primary fw-bold h3"></i> 
+                    <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span> 
+                    <span class="ms-Button-label">Generar Respaldo</span> 
+                    <span class="ms-Button-description">Ingrese un sector para el cobro de agua</span> 
+                </button>
+                
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+        <!-- Modal -->
+<!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"> -->
+    <!-- <div class="modal-dialog"> -->
+        <div class="docs-DialogExample-blocking">
+            <div class="ms-Dialog ms-Dialog--blocking">
+              <div class="ms-Dialog-title">Elíga una de las opciones del manejo del sistema.</div>
+                <p class="ms-Dialog-subText">Una vez selciona la opción se le mostrara el menu.</p>
+                <div class="ms-ChoiceFieldGroup" id="choicefieldgroup" role="radiogroup">
+                    <div class="ms-ChoiceFieldGroup-title">
+                      <label class="ms-Label is-required">Seleccione la complejidad del sistema.</label>
+                    </div>
+                    <ul class="ms-ChoiceFieldGroup-list">
+                      <li class="ms-RadioButton">
+                        <input tabindex="-1" type="radio" value="3" class="ms-RadioButton-input">
+                        <label role="radio" class="ms-RadioButton-field" tabindex="0" aria-checked="false" name="choicefieldgroup">
+                          <span class="ms-Label">Avanzado.</span> 
+                        </label>
+                      </li>
+                      <li class="ms-RadioButton">
+                        <input tabindex="-1" type="radio" value="2" class="ms-RadioButton-input">
+                        <label role="radio" class="ms-RadioButton-field" tabindex="0" aria-checked="false" name="choicefieldgroup">
+                          <span class="ms-Label">Medio.</span> 
+                        </label>
+                      </li>
+                      <li class="ms-RadioButton">
+                        <input tabindex="-1" type="radio" value="1"  class="ms-RadioButton-input">
+                        <label role="radio" class="ms-RadioButton-field" tabindex="0" aria-checked="false" name="choicefieldgroup">
+                          <span class="ms-Label">Basico.</span> 
+                        </label>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="ms-Dialog-actions">
+                    <button class="ms-Button ms-Dialog-action ms-Button--primary">
+                      <span class="ms-Button-label">Save</span> 
+                    </button>
+                  </div>
+                </div>
+          </div>
+    </div>
+  <!-- </div> -->
+  
+    
+  <script src="./../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="./../src/ui/fabric.min.js"></script>
+  <script type="module" src="./../src/ui/principal.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./../node_modules/animate.css/animate.min.css">
+    <link rel="stylesheet" href="./../src/public/css/fabric.min.css">
+    <link rel="stylesheet" href="./../src/public/css/fabric.components.min.css">
+    <link rel="stylesheet" href="./../src/public/css/styles.css">
+    <link rel="stylesheet" href="./../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="contenedor-principal">
+
+    <div class="w-100">
+        <div class="d-flex justify-content-center align-items-center">
+            <img src="./../src/public/imgs/undraw_login_re_4vu2.svg" width="400" height="500" alt="login">
+        </div>
+        <form id="form-login"
+         class="form-control-sm container-sm frm-init font-monospace" style="margin-top: -5rem;">
+        <div class="mb-3 row">
+            <label for="staticEmail" class="col-sm-2 col-form-label fw-bold">Usuario</label>
+            <div class="col-sm-10">
+              <input type="text" id="user" class="ms-TextField-field">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="inputPassword" class="col-sm-2 col-form-label fw-bold">Contraseña</label>
+            <div class="col-sm-10">
+              <input type="password" id="password" class="ms-TextField-field">
+            </div>
+          </div>
+          <div class="w-100 d-flex justify-content-center mt-2">
+              <button class="ms-Button ms-Button--primary ps-5 pe-5">
+                  <span class="ms-Button-label">Ingresar</span> 
+                </button>
+            </div>
+        </form> 
+    </div>
+        <div class="w-100 mt-3 mb-5">
+            <span id="data-db" class="d-block text-center text-primary text-decoration-underline pointer">Actualizar datos de la base de datos</span>
+        </div>
+        <div class="w-100 text-center mb-5" style="margin-top: 6.8rem;">
+            <div id="content-data" class="w-100 d-none mt-5">
+                <form id="form-data-db" 
+                class="form-control-sm container-sm frm-init font-monospace" style="margin-top: -5rem;">
+                    <div class="mb-3 row">
+                        <label for="staticEmail" class="col-sm-4 text-start col-form-label fw-bold">Nombre de la base de datos</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="dbname" class="ms-TextField-field">
+                        </div>
+                      </div>
+                      <div class="mb-3 row">
+                        <label for="staticEmail" class="col-sm-4 text-start col-form-label fw-bold">Nombre de usuario</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="user" value="root" class="ms-TextField-field">
+                        </div>
+                      </div>
+                      <div class="mb-3 row">
+                        <label for="staticEmail" class="col-sm-4 text-start col-form-label fw-bold">Nombre de host</label>
+                        <div class="col-sm-8">
+                          <input type="text" value="localhost" name="host" class="ms-TextField-field">
+                        </div>
+                      </div>
+                      <div class="mb-3 row">
+                        <label for="staticEmail" class="col-sm-4 text-start col-form-label fw-bold">Numero de puerto</label>
+                        <div class="col-sm-8">
+                          <input type="text" value="3306" name="port" class="ms-TextField-field">
+                        </div>
+                      </div>
+                      <div class="mb-3 row">
+                        <label for="inputPassword" class="col-sm-4 text-start col-form-label fw-bold">Contraseña</label>
+                        <div class="col-sm-8">
+                          <input type="password" name="clave" class="ms-TextField-field">
+                        </div>
+                      </div>
+                      <div class="w-100 d-flex justify-content-center mt-2">
+                          <button class="ms-Button ms-Button--primary ps-5 pe-5">
+                              <span class="ms-Button-label">Actualizar</span> 
+                            </button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+
+</div>
+
+    <script src="./../src/ui/fabric.min.js"></script>
+    <script src="./../src/ui/login.js"></script>
+</body>
+</html>
