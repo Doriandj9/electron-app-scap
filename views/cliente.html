@@ -1,10 +1,51 @@
-<nav class="">
-    <ul class="list-unstyled">
-        <li>
-            Opcion 1
-        </li>
-        <li>
-            Opcion 2
-        </li>
-    </ul>
-</nav>
+<div class="">
+<div class="w-100">
+    <h4 class="mt-2 h5 border border-1 border-dark border-opacity-25 pb-2
+    border-top-0 border-end-0 border-start-0 ps-4">Ingrese un nuevo cliente</h4>
+    <form class="w-75 border m-auto p-3 border-1 border-dark-subtle" id="form-cliente">
+        <div class="d-flex gap-2">
+            <div class="w-50">
+            <div class="mb-3">
+                <label class="ms-Label is-required">Ingrese el número de cédula </label>
+                <input type="text" class="ms-TextField-field fw-bold" placeholder="Por ejemplo: 02000015654 ">
+                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+              </div>
+              <div class="mb-3">
+                  <label class="ms-Label is-required">Ingrese los nombres</label>
+                  <input id="price" type="text" class="ms-TextField-field fw-bold" placeholder="Por ejemplo: Juan Jose">
+                  <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+              </div>
+            </div>
+            <div class="w-50">
+                <div class="mb-3">
+                    <label class="ms-Label is-required">Ingrese los apellidos </label>
+                    <input type="text" class="ms-TextField-field fw-bold" placeholder="Por ejemplo: Flores Canto ">
+                    <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                  </div>
+                  <div class="mb-3">
+                      <label class="ms-Label is-required">Ingrese el correo electronico</label>
+                      <input id="price" type="text" class="ms-TextField-field fw-bold" placeholder="Por ejemplo: ejemplo@gmail.com">
+                      <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                  </div>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="mb-3">
+                        <label class="ms-Label is-required">Ingrese el número del telefono'</label>
+                        <input id="price" type="text" class="ms-TextField-field fw-bold" placeholder="Por ejemplo: 0989995547">
+                        <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                    </div>
+                    <button type="submit" class="ms-Button ms-Button--primary d-block w-100">
+                        <span class="ms-Button-label">Agregar Cliente</span> 
+                      </button>
+                </div>
+        </div>
+    </form>
+</div>
+<h4 class="mt-2 h5 border border-1 border-dark border-opacity-25 pb-2
+    border-top-0 border-end-0 border-start-0 ps-4">Lista de clientes</h4>
+<div class="d-flex justify-content-around gap-2 flex-grow-1 mt-2 ps-2 pe-2 flex-wrap cards-container" id="cards">
+      <h4 class="text-center text-bg-info text-white p-2"> De momento no contiene clientes registrados. </h4>
+</div>
+
+
+</div>
