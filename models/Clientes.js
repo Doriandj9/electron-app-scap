@@ -47,7 +47,7 @@ class Clientes {
         }catch(error){
             return {
                 ident:0,
-                mensaje: error
+                mensaje: error.errors[0].message
             }
         }
     }

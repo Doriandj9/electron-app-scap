@@ -55,7 +55,7 @@ async function listarClientes() {
         <div class="ms-PersonaCard-actionDetailBox">
           <div data-detail-id="mail" class="ms-PersonaCard-details">
             <div class="ms-PersonaCard-detailLine"><span class="ms-PersonaCard-detailLabel">Personal:</span> 
-              <a class="ms-Link" href="mailto:${datos.correo}">${datos.correo}</a> 
+              <a class="ms-Link" href="mailto:${datos.correo}">${datos.correo ? datos.correo : 'No disponible'}</a> 
             </div>
           </div>
           <div data-detail-id="chat" class="ms-PersonaCard-details">
@@ -66,7 +66,8 @@ async function listarClientes() {
           <div data-detail-id="phone" class="ms-PersonaCard-details">
             <div class="ms-PersonaCard-detailExpander"></div>
             <div class="ms-PersonaCard-detailLine">
-              <span class="ms-PersonaCard-detailLabel">Personal:</span> ${datos.telefono}
+              <span class="ms-PersonaCard-detailLabel">Personal:</span> 
+              ${datos.telefono ? datos.telefono : 'No disponible'}
             </div>
           </div>
           <div data-detail-id="video" class="ms-PersonaCard-details">
@@ -120,6 +121,6 @@ async function habilitarForm(e) {
         cedula.value = nombres.value = apellidos.value = correo.value = telefono.value = '';
         listarClientes();
     }else {
-        alerta('alert-danger',mensaje);
+        alerta('alert-danger','Error, se puede deber a que el cliente ya existe o no se ingreso correctamente los datos.',3000);
     }
 }
