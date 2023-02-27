@@ -1,1 +1,47 @@
-<h1>Cassas</h1>
+<h4 class="mt-2 h5  border border-1 border-dark border-opacity-25 pb-2
+border-top-0 border-end-0 border-start-0 ps-4">Formulario para agregar una nueva casa</h4>
+<div class="w-100">
+    <form class="w-75 border m-auto p-3 border-1 border-dark-subtle" id="form-casas">
+        <div class="d-flex gap-2">
+            <div class="w-50">
+            <div class="mb-3">
+                <label class="ms-Label is-required">Seleccione el propietario del domicilio.</label>
+                  <select id="owners" class="form-select form-select-sm fw-bold" aria-label=".form-select-lg example">            
+                </select>
+            </div>
+              <div id="sectores" class="mb-3" menu-avanced >
+                  <label class="ms-Label is-required">Selecione el sector de la casa </label>
+                  <select class="form-select form-select-sm fw-bold" aria-label=".form-select-lg example">
+                  </select>
+                  <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+              </div>
+              <div class="mb-3">
+                <label class="ms-Label is-required">Codigo de la casa</label>
+                <input id="cod" type="text" disabled class="ms-TextField-field fw-bold" placeholder="Este codigo se genera automaticamente.">
+                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+              </div>
+              
+            </div>
+            <div class="w-50">
+                <div class="mb-3">
+                    <label class="ms-Label is-required">Ingrese la dirección</label>
+                    <input type="text" class="ms-TextField-field fw-bold" placeholder="Por ejemplo: Cuatro Esquinas ">
+                    <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                  </div>
+                  <div class="mb-3" menu-avanced>
+                      <label class="ms-Label is-required">Ingrese el número del medidor</label>
+                      <input id="price" type="text" class="ms-TextField-field fw-bold" placeholder="Por ejemplo: ">
+                      <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                  </div>
+                  <div class="mb-3" menu-avanced>
+                    <label class="ms-Label is-required">Ingrese el valor actual del medidor</label>
+                    <input id="price" type="text" class="ms-TextField-field fw-bold" placeholder="Por ejemplo: 1504568794">
+                    <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                </div>
+                </div>
+        </div>
+        <button type="submit" class="ms-Button m-auto ms-Button--primary d-block w-25">
+            <span class="ms-Button-label">Agregar Domicilio</span> 
+          </button>
+    </form>
+</div>

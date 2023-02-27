@@ -22,7 +22,8 @@ class Casas {
     async all(){
         try {
            const res = await this.#model.findAll({
-                attributes: this.#attibutes
+                attributes: this.#attibutes,
+                order:['codigo','ASC']
             });
             return {
                 ident:1,
@@ -45,6 +46,7 @@ class Casas {
                 mensaje: 'Se ingreso correctamente.'
             }
         }catch(error){
+            console.log(error);
             return {
                 ident:0,
                 mensaje: error
