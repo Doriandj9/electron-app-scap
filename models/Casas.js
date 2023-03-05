@@ -1,5 +1,6 @@
 const {sequelize} = require('./db/conection');
 const {DataTypes} = require('sequelize');
+const Clientes = require('./Clientes');
 class Casas {
     #model;
     #attibutes = ['codigo','direccion','medidor','valor_anterior','valor_actual','id_cliente'];
@@ -23,7 +24,9 @@ class Casas {
         try {
            const res = await this.#model.findAll({
                 attributes: this.#attibutes,
-                order:['codigo','ASC']
+                order:[
+                    ['id','ASC']
+                ]
             });
             return {
                 ident:1,
@@ -52,6 +55,26 @@ class Casas {
                 mensaje: error
             }
         }
+    }
+
+    async allWihtOwner() {
+        try {
+            const [results, metadata] = await sequelize.query(`SELECT 
+            cedula, codigo, nombres, apellidos, medidor,direccion,id 
+            FROM casas inner join clientes ON casas.id_cliente = clientes.cedula
+            ORDER BY casas.id`);
+        // Results will be an empty array and metadata will contain the number of affected rows.
+             return {
+                 ident:1,
+                 data: results
+             };
+             
+         } catch (error) {
+             return {
+                 ident: 0,
+                 mensaje: error
+             }
+         }
     }
 }
 

@@ -3,7 +3,6 @@ import newPage from "./utiles/newPage.js";
 import Notificacion from './../../utiles/Notificacion/Notificacion.js';
 
 let casas = [];
-
 export function init() {
     newPage('casas.html')
     .then(run)
@@ -21,8 +20,24 @@ function run() {
 
 async function listarCasas() {
     const {ident,data} = await window.modelCasa.allCasa();
-    casas = data;
-    console.log(ident, data);
+    casas = data ?? [];
+    let html = casas.length !== 0 ? '' : `<tr>
+    <td colspan="5" class="text-center">
+        <span class="h3 ">De momento no contiene ninigun domicilio disponbles.</span>
+    </td>
+  </tr>`;
+    casas.forEach(dato => {
+        html += `
+        <tr>
+            <td> ${dato.codigo}</td>
+            <td> ${dato.direccion}</td>
+            <td> ${dato.medidor}</td>
+            <td> ${dato.nombres.split(' ')[0] + ' ' + dato.apellidos.split(' ')[0]}</td>
+            <td> ${dato.cedula}</td>
+        </tr>
+        `;
+    });
+    document.querySelector('tbody').innerHTML = html;
 }
 
 async function habiltarFormulario(e) {
@@ -30,7 +45,7 @@ async function habiltarFormulario(e) {
     const form = this;
     let idcod = null;
     if(localStorage.optionMenu != 3) {
-       const lastHouse = casas.length !== 0 ? casas.at(-1).dataValues : {codigo: '0'};
+       const lastHouse = casas.length !== 0 ? casas.at(-1) : {codigo: '0'};
        const codi = lastHouse.codigo;
        idcod = codi ? parseInt(codi) + 1 : 1; 
        idcod = String(idcod);
@@ -58,36 +73,21 @@ async function habiltarFormulario(e) {
         alerta('alert-warning','Por favor ingrese el valor actual del medidor.',2000);
         return
     }
-    let time = new Date();
-    const int = Intl.DateTimeFormat('es',{
-        year: 'numeric',
-        month:'2-digit',
-        day: '2-digit',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric'
-    }).format
-    let [dateT,timeT] = int(time).split(' ');
-    let [uno,dos,tres] =  dateT.split('/');
-    tres = tres.replace(',','');
-    const dates = tres + '-' + dos +'-' + uno + ' ' + timeT;
     const data = {
         codigo: localStorage.optionMenu == 3 ? cod.value.trim() : idcod,
         direccion: dir.value.trim(),
         medidor: med.value.trim(),
         valor_actual: vactmed.value.trim(),
-        id_cliente: selecOwners.value.trim(),
-        fecha: dates
+        id_cliente: selecOwners.value.trim()
     };
-    console.log(data);
     const {ident,mensaje} = await window.modelCasa.addCasa(data);
-
     if(ident) {
         new Notificacion(`Se ingreso correctamente el domicilio, 
-        el codigo que servira para futuras consultas y manipulación de datos es: <br>
-        Codigo: <strong>${data.codigo}</stron> <br>
+        el codigo que servira para futuras consultas y manipulación de datos 
+        es el siguiente. <br><hr> 
+        Codigo: <strong>${data.codigo}</strong> <hr> <br>
         Asegurese de brindarle al cliente dicho codigo y recomiendele que lo guarde
-        muy bien.`,'Aceptar',false);
+        en un lugar seguro.`,'Aceptar',false);
         listarCasas();
         selecOwners.value = selectHouse.value = 'none';
         cod.value = dir.value = med.value= vactmed.value = ''; 
@@ -133,7 +133,7 @@ function asignacionCodigo(e) {
     const value = this.value;
     const cod = document.getElementById('cod');
     if(value.trim() !== 'none'){
-       const lastHouse = casas.length !== 0 ? casas.at(-1).dataValues : {codigo: 'DES-000'};
+       const lastHouse = casas.length !== 0 ? casas.at(-1) : {codigo: 'DES-000'};
        const [sector, codi] = lastHouse.codigo.split('-');
        const idcod = codi ? parseInt(codi) + 1 : 1; 
        cod.value = value.trim() + '-' + idcod;

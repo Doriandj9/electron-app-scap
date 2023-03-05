@@ -43,5 +43,5 @@ ipcMain.handle('op:casa.add', async (e,data) => {
 })
 
 ipcMain.handle('op:casa.all', async () => {
-    return await casas.all();    
+    return await casas.allWihtOwner();
 })

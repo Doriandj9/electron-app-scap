@@ -68,12 +68,12 @@ fetch('./../utiles/Notificacion/template.html')
 
 export default class Notificacion {
     constructor(mensaje,text_button,notificacion_error = true){
-        let backgrod_color = '#f8d7da'
+        let backgrod_color = '#a80000'
         let backgrod_color_button = '#505C6A';
-        let color_texto = '#842029';
+        let color_texto = '#ffffff';
         if(!notificacion_error){
-            backgrod_color = '#cfe2ff';
-            color_texto = '#084298';
+            backgrod_color = '#005a9e';
+            color_texto = '#ffffff';
         }
         const notificacion_componente = document.createElement('notificacion-componente');
         notificacion_componente.setAttribute('mensaje',mensaje);
