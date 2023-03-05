@@ -16,6 +16,11 @@ border-top-0 border-end-0 border-start-0 ps-4">Formulario para agregar una nueva
                   <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
               </div>
               <div class="mb-3">
+                <label class="ms-Label is-required">Seleccione la categoria a la que pertenece el domicilio.</label>
+                  <select id="category" class="form-select form-select-sm fw-bold" aria-label=".form-select-lg example">            
+                </select>
+            </div>
+              <div class="mb-3">
                 <label class="ms-Label is-required">Codigo de la casa</label>
                 <input id="cod" type="text" disabled class="ms-TextField-field fw-bold" placeholder="Este codigo se genera automaticamente.">
                 <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
@@ -55,13 +60,14 @@ border-top-0 border-end-0 border-start-0 ps-4">Domicilios Disponibles</h4>
         <th>Codigo de Domicilio</th>
         <th>Dirección de Domicilio</th>
         <th>Nº de Medidor</th>
+        <th>Categoria del Domicilio</th>
         <th>Propietario</th>
-        <th>Nº de Cédula de Propietario</th>
+        <th>Nº de Cédula</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td colspan="5" class="text-center">
+        <td colspan="6" class="text-center">
             <span class="h3 ">De momento no contiene ninigun domicilio disponbles.</span>
         </td>
       </tr>

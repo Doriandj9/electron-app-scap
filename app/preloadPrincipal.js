@@ -18,5 +18,6 @@ contextBridge.exposeInMainWorld('modelCliente',{
 
 contextBridge.exposeInMainWorld('modelCasa',{
     addCasa(data){return ipcRenderer.invoke('op:casa.add',data)},
+    addCasaAndCategory(data){return ipcRenderer.invoke('op:casa.category.add',data)},
     allCasa(){return ipcRenderer.invoke('op:casa.all')}
 })

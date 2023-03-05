@@ -3,11 +3,13 @@ const Categorias = require('./../models/Categorias');
 const Sectores = require('./../models/Sectores');
 const Clientes  = require('./../models/Clientes');
 const Casas = require('./../models/Casas');
+const CasasCategorias = require('./../models/CasasCategorias');
 
 const categoria = new Categorias();
 const sectores = new Sectores();
 const clientes = new Clientes();
 const casas = new Casas();
+const casasCategorias = new CasasCategorias;
 
 ipcMain.handle('op:category.add',async (e,data) => {
     return await categoria.insert(data);
@@ -44,4 +46,8 @@ ipcMain.handle('op:casa.add', async (e,data) => {
 
 ipcMain.handle('op:casa.all', async () => {
     return await casas.allWihtOwner();
+})
+
+ipcMain.handle('op:casa.category.add', async (e,data) => {
+    return await casasCategorias.insert(data);    
 })

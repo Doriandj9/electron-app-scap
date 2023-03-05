@@ -59,9 +59,13 @@ class Casas {
 
     async allWihtOwner() {
         try {
-            const [results, metadata] = await sequelize.query(`SELECT 
-            cedula, codigo, nombres, apellidos, medidor,direccion,id 
+            const [results, metadata] = await sequelize.query(`SELECT categorias.id as id_categoria,
+            categorias.nombre as nombre_categoria, casas_categorias.id_casas as id_casas,
+            casas_categorias.id_categorias as id_categoria,
+            cedula, codigo, nombres, apellidos, medidor,direccion, casas.id as codigo_casa 
             FROM casas inner join clientes ON casas.id_cliente = clientes.cedula
+            inner join casas_categorias ON  casas_categorias.id_casas = codigo 
+            inner join categorias ON categorias.id = casas_categorias.id_categorias
             ORDER BY casas.id`);
         // Results will be an empty array and metadata will contain the number of affected rows.
              return {
