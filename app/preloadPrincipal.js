@@ -21,3 +21,8 @@ contextBridge.exposeInMainWorld('modelCasa',{
     addCasaAndCategory(data){return ipcRenderer.invoke('op:casa.category.add',data)},
     allCasa(){return ipcRenderer.invoke('op:casa.all')}
 })
+
+contextBridge.exposeInMainWorld('modelCobro',{
+    addCobro(data){return ipcRenderer.invoke('op:cobro.add',data)},
+    infoCobro(codigo){return ipcRenderer.invoke('op:cobro.info',codigo)}
+})
