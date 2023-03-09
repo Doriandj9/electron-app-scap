@@ -5,6 +5,7 @@ const Clientes  = require('./../models/Clientes');
 const Casas = require('./../models/Casas');
 const CasasCategorias = require('./../models/CasasCategorias');
 const Cobros = require('./../models/Cobros');
+const generateReporte = require('./reportes');
 
 
 const categoria = new Categorias();
@@ -62,4 +63,12 @@ ipcMain.handle('op:cobro.add', async (e,data) => {
 })
 ipcMain.handle('op:cobro.info', async (e,codigo) => {
     return await cobros.info(codigo);    
+})
+ipcMain.handle('op:cobro.update.estado', async (e,data) => {
+    return await cobros.updateComision(data);    
+})
+
+
+ipcMain.handle('op:reporte', (e,data) => {
+    return  generateReporte(data);
 })

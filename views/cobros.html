@@ -44,3 +44,82 @@ border-top-0 border-end-0 border-start-0 ps-4">Datos del Cobro</h4>
   
 </div>
 </div>
+
+
+<div id="reporte-final" class="hidden">
+      <style>
+          .body {
+      padding:0;
+      margin:0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+  }
+  
+  .contenedor-reporte{
+      min-height: 60vh;
+      margin: auto;
+      width: 400px;
+      border: 1px solid rgba(0,0,0,0.5);
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+  }
+  .header {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+  }
+  
+  .header > img {
+      width: 5rem;
+      height: 5.5rem;
+  }
+  
+  .footer{
+      text-align: center;
+      font-size: 0.5rem;
+      color: rgba(0 , 0 , 0 ,0.5);
+      margin-top: 3rem;
+      flex-grow: 1;
+      display:flex;
+      align-items: end;
+  }
+  .footer p {
+      border-top: 1px solid rgba(0,0,0,0.6);
+      width: 100%;
+  }
+      </style>
+
+  <div class="body">
+      <div class="contenedor-reporte">
+          <header class="header">
+              <img src="./../src/public/imgs/agua.webp" alt="">
+              <h3> Factura de Agua Potable </h3>
+          </header>
+          <main>
+              <h5>Información Social</h5>
+              <ul>
+                  <li><strong>Codigo de Domicilio: </strong> <span id="id"></span></li>
+                  <li><strong>Fecha: </strong> <span id="date"></span></li>
+                  <li><strong>Hora: </strong> <span id="hour"></span></li>
+                  <li><strong>Cédula: </strong> <span id="cedula"></span></li>
+                  <li><strong>Nombres: </strong> <span id="name"></span></li>
+                  <li><strong>Apellidos: </strong> <span id="lastname"></span></li>
+              </ul>
+              <h5>Información de Consumo</h5>
+              <ul>
+                  <li><strong>Consumo: </strong> <span id="consumo"></span></li>
+                  <li><strong>Total a Pagar: </strong> <span id="total"></span></li>
+              </ul>
+          </main>
+          <footer class="footer">
+              <p>
+              Factura realiza en el sistema SCAP.
+              </p>
+          </footer>
+      </div>
+  </div>
+  </html>
+</div>

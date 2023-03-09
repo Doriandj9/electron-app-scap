@@ -1,13 +1,14 @@
+import alerta from "../../utiles/alertasBootstrap.js";
 import newPage from "./utiles/newPage.js";
 
 export function init() {
-    newPage('mora.html')
+    newPage('metro-cubico.html')
     .then(run)
     .catch(console.log);
 }
 
 function run() {
-    const form = document.getElementById('form-mora');
+    const form = document.getElementById('form-m3');
     const input = form.querySelector('input');
     form.addEventListener('submit',guardarDato);
     inputPrice(input);
@@ -20,12 +21,12 @@ function guardarDato(e) {
 
     const input = form.querySelector('input');
 
-    if(input.value.trim().replace('$','') === '') {
+    if(input.value.trim().replace('ctvs','') === '') {
         alerta('Por favor ingrese un valor para continuar',2000);
         return
     }
 
-    localStorage.valorMora = input.value.trim().replace('$','');
+    localStorage.valorMetroCubico = input.value.trim().replace('ctvs','');
 
     listarValor();
 
@@ -43,13 +44,13 @@ function inputPrice(price) {
         }
     })
     price.addEventListener('change',() => {
-        price.value = price.value + '$';
+        price.value = price.value + 'ctvs';
     })
 }
 
 function listarValor() {
 const ui = document.getElementById('ui');
-    if(localStorage.valorMora){
-        ui.textContent = localStorage.valorMora + '$';
+    if(localStorage.valorMetroCubico){
+        ui.textContent = localStorage.valorMetroCubico + 'ctvs';
     }
 }

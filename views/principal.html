@@ -58,6 +58,20 @@
                     <span class="ms-Button-description">Ingrese un sector para el cobro de agua</span> 
                 </button>
 
+                <button id="valor-m3" menu-basic class="ms-Button ms-Button--compound d-none">
+                  <i class="ms-Icon ms-Icon--Home text-primary fw-bold h3"></i> 
+                  <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span> 
+                  <span class="ms-Button-label">Valor de Metro Cubico</span> 
+                  <span class="ms-Button-description">Ingrese un sector para el cobro de agua</span> 
+                </button>
+
+                <button id="mora" menu-basic class="ms-Button ms-Button--compound d-none">
+                  <i class="ms-Icon ms-Icon--Attach text-primary fw-bold h3"></i> 
+                  <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span> 
+                  <span class="ms-Button-label">Establecer Mora</span> 
+                  <span class="ms-Button-description">Ingrese un sector para el cobro de agua</span> 
+              </button>
+
                 <button id="cobros" menu-basic class="ms-Button ms-Button--compound d-none">
                     <i class="ms-Icon ms-Icon--Calendar text-primary fw-bold h3"></i> 
                     <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span> 
@@ -91,12 +105,6 @@
                     <i class="ms-Icon ms-Icon--Clock text-primary fw-bold h3"></i> 
                     <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span> 
                     <span class="ms-Button-label">Actualización Medidor</span> 
-                    <span class="ms-Button-description">Ingrese un sector para el cobro de agua</span> 
-                </button>
-                <button id="mora" menu-basic class="ms-Button ms-Button--compound d-none">
-                    <i class="ms-Icon ms-Icon--Attach text-primary fw-bold h3"></i> 
-                    <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span> 
-                    <span class="ms-Button-label">Establecer Mora</span> 
                     <span class="ms-Button-description">Ingrese un sector para el cobro de agua</span> 
                 </button>
 
@@ -156,7 +164,7 @@
                   </div>
                   <div class="ms-Dialog-actions">
                     <button class="ms-Button ms-Dialog-action ms-Button--primary">
-                      <span class="ms-Button-label">Save</span> 
+                      <span class="ms-Button-label">Guardar</span> 
                     </button>
                   </div>
                 </div>
@@ -167,6 +175,7 @@
     
   <script src="./../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="./../src/ui/fabric.min.js"></script>
+  <script src="./../utiles/html2pdf.js/dist/html2pdf.bundle.min.js"></script>
   <script type="module" src="./../src/ui/principal.js"></script>
 </body>
 </html>

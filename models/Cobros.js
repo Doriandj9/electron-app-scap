@@ -1,6 +1,6 @@
 const {sequelize} = require('./db/conection');
 const {DataTypes, QueryTypes, Sequelize} = require('sequelize');
-class Cobros {
+class Cobros  {
     #model;
     #attibutes = ['id','ingreso','fecha','id_casa'];
     constructor() {
@@ -60,6 +60,7 @@ class Cobros {
             clientes.nombres as nombres, clientes.apellidos as apellidos, 
             casas.codigo as codigo, casas.direccion as direccion, casas.medidor,
             casas.valor_anterior as valor_anterior, casas.valor_actual as valor_actual,
+            casas.mora as mora, casas.comision as comision,
             categorias.nombre as nombre_categoria, categorias.precio as precio,
             categorias.max_agua as consumo,
             sectores.codigo as codigo_sector, sectores.detalle as nombre_sector
@@ -82,6 +83,29 @@ class Cobros {
                 ident:0,
                 mensaje: error
             };
+        }
+    }
+
+    async updateComision(data){
+        const {codigo,update:dataValues} = data;
+        try{
+            let res = await sequelize.query(
+                'UPDATE casas SET comision = ? WHERE codigo = ?',
+                {
+                    replacements: [dataValues.comision, codigo],
+                    type: QueryTypes.SELECT
+                }
+            )
+            console.log(res);
+            return {
+                ident:1,
+                mensaje: 'Se actualizo el estado.'
+            }
+        }catch(error){
+            return {
+                ident:0,
+                mensaje: error
+            }
         }
     }
 }

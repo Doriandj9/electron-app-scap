@@ -11,6 +11,7 @@ const buttonAcometida = document.querySelector('button#acometida');
 const buttonMedidor = document.querySelector('button#medidor');
 const buttonMora = document.querySelector('button#mora');
 const buttonRespaldo = document.querySelector('button#respaldo');
+const buttonMetroCub = document.querySelector('button#valor-m3');
 
 if(!localStorage.optionMenu){
     init();
@@ -200,3 +201,39 @@ buttonRespaldo.addEventListener('click',() => {
         .catch(console.log);
     }
 })
+
+buttonMetroCub.addEventListener('click',() => {
+    if(!verifiDisplay(buttonMetroCub)){
+        import('./metroC.js')
+        .then(fun => {
+            const {init} = fun;
+            init();})
+        .catch(console.log);
+    }
+})
+
+
+// Se encarga establecer las fechas de cobros
+/**
+ * @var mesesValidacion correspende a los 12 meses del año y si ya fueron pagados co true y si no con false
+ */
+const mesesValidacion = [
+    false,false,false,false,false,false,false,false,false,false,false,false
+];
+
+
+function setDate(){
+    const time  = new Date();
+    const month = time.getMonth();
+    const year = time.getFullYear();
+    let timeInit = 'month-01-year';
+    timeInit = timeInit.replace('year',year);
+    timeInit = timeInit.replace('month',month + 1);
+    timeInit = new Date(timeInit);
+    let timeLimit = 'month-01-year'
+    timeLimit = timeLimit.replace('year',year);
+    timeLimit = timeLimit.replace('month',month + 2);
+    timeLimit = new Date(timeLimit);
+}
+
+setDate();

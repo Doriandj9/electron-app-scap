@@ -24,5 +24,9 @@ contextBridge.exposeInMainWorld('modelCasa',{
 
 contextBridge.exposeInMainWorld('modelCobro',{
     addCobro(data){return ipcRenderer.invoke('op:cobro.add',data)},
-    infoCobro(codigo){return ipcRenderer.invoke('op:cobro.info',codigo)}
+    infoCobro(codigo){return ipcRenderer.invoke('op:cobro.info',codigo)},
+    updateEstado(data) {return ipcRenderer.invoke('op:cobro.update.estado',data)}
+})
+contextBridge.exposeInMainWorld('reporte',{
+    reporte(data){return ipcRenderer.invoke('op:reporte',data)}
 })
