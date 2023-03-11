@@ -116,3 +116,11 @@ embed{
 .btn__disabled{
     cursor: no-drop;
 }
+.selected-casa{
+    cursor: pointer;
+    transition: all 0.5s; 
+}
+
+.selected-casa:hover {
+    transform: scale(1.1);
+}

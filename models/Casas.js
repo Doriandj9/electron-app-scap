@@ -84,6 +84,28 @@ class Casas {
              }
          }
     }
+
+    async update({codigo,data}) {
+        try{
+            const res = await this.#model.update(data,{
+                where: {
+                    codigo: codigo
+                }
+            });
+            if(res[0] <= 0) throw Error('Error: A ocurrido un error al momento de generar la recaudación.');
+            
+            return {
+                ident:1,
+                mensaje: 'Se ingreso correctamente.'
+            }
+        }catch(error){
+            console.log(error);
+            return {
+                ident:0,
+                mensaje: error
+            }
+        }
+    }
 }
 
 module.exports = Casas;

@@ -36,6 +36,12 @@ class Cobros  {
     }
 
     async insert(data){
+        const time = new Date();
+        const format = Intl.NumberFormat('es',{
+            minimumIntegerDigits: 2
+        }).format
+        const date = `${time.getFullYear()}-${format((time.getMonth() + 1))}-${format(time.getDate())}`
+        data.fecha = date;
         try{
             await this.#model.create(data);
             return {
@@ -43,6 +49,7 @@ class Cobros  {
                 mensaje: 'Se ingreso correctamente.'
             }
         }catch(error){
+            console.log(error);
             return {
                 ident:0,
                 mensaje: error
@@ -86,28 +93,29 @@ class Cobros  {
         }
     }
 
-    async updateComision(data){
-        const {codigo,update:dataValues} = data;
-        try{
-            let res = await sequelize.query(
-                'UPDATE casas SET comision = ? WHERE codigo = ?',
-                {
-                    replacements: [dataValues.comision, codigo],
-                    type: QueryTypes.SELECT
-                }
-            )
-            console.log(res);
+    async allCasasForOwner(cedula) {
+        try {
+            const results = await sequelize.query(`SELECT casas.codigo as codigo, casas.direccion as direccion,
+            clientes.nombres as nombres, clientes.apellidos as apellidos FROM 
+            clientes inner join casas ON casas.id_cliente = clientes.cedula  
+            WHERE clientes.cedula = ?
+            `,{
+                replacements: [cedula],
+                type: QueryTypes.SELECT
+            });
             return {
                 ident:1,
-                mensaje: 'Se actualizo el estado.'
-            }
-        }catch(error){
+                data: results
+            };
+        } catch (error) {
+            console.log(error);
             return {
                 ident:0,
                 mensaje: error
-            }
+            };
         }
     }
+
 }
 
 module.exports = Cobros;

@@ -64,8 +64,11 @@ ipcMain.handle('op:cobro.add', async (e,data) => {
 ipcMain.handle('op:cobro.info', async (e,codigo) => {
     return await cobros.info(codigo);    
 })
+ipcMain.handle('op:cobro.casas', async (e,codigo) => {
+    return await cobros.allCasasForOwner(codigo);    
+})
 ipcMain.handle('op:cobro.update.estado', async (e,data) => {
-    return await cobros.updateComision(data);    
+    return await casas.update(data);   
 })
 
 

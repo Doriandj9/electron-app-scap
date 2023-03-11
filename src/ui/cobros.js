@@ -1,5 +1,7 @@
 import Notificacion from "../../utiles/Notificacion/Notificacion.js";
 import newPage from "./utiles/newPage.js";
+import alerta from "../../utiles/alertasBootstrap.js";
+import { CEDULA_REG_EXPRE } from "../../utiles/RegularExpresions/ConstExpres.js";
 
 export function init() {
     newPage('cobros.html')
@@ -20,16 +22,44 @@ function run () {
     }
 
     const busqueda = document.getElementById('busqueda-cobros');
+    const textInput = document.getElementById('busqueda-text');
+
     busqueda.addEventListener('click',busquedaDatos);
+    textInput.addEventListener('search',busquedaDatos);
 }
 
 async function busquedaDatos(e) {
     e.preventDefault();
     const busqueda = document.getElementById('busqueda-text');
-    
-    const {ident,data} = await window.modelCobro.infoCobro(busqueda.value.trim());
+    const regCod = /-/;
+    if(CEDULA_REG_EXPRE.test(busqueda.value.trim())){
+        // buscamos por cedula
+        const casas = await window.modelCobro.allCasas(busqueda.value.trim());
+        listarCasas(casas.data);
+        return;
+    }
 
-    console.log(ident,data);
+    if(regCod.test(busqueda.value.trim())){
+        presentacionDatos(busqueda.value.trim());
+        return;
+    }
+
+    alerta('alert-warning', 'El valor ingresado no corresponde a un número de cédula o código de casa',3000);
+}
+
+
+
+async function presentacionDatos(codigoCasa){
+    const {ident,data} = await window.modelCobro.infoCobro(codigoCasa);
+    if(!ident){
+        alerta('alert-danger', 'A ocurrido un erro al realizar la busqueda, por favor intentelo mas tarde');
+        return;
+    }
+
+    if(!data){
+        new Notificacion('No existe la casa con el codigo <stron>' + codigoCasa + '</strong>','Regresar');
+        return;
+    }
     const {
         apellidos,nombres,cedula,codigo,
         codigo_sector,consumo,direccion,
@@ -40,8 +70,8 @@ async function busquedaDatos(e) {
     const consumoFinal = valor_actual - valor_anterior;
     const sobrepasa = consumoFinal > parseInt(consumo.replace('m3','')) ? true : false;
     const vaSo= ((valor_actual - valor_anterior) - (parseInt(consumo)));
-    const subt = parseFloat(localStorage.valorMetroCubico) *  vaSo;
-    let total = sobrepasa ? precio + subt : precio;
+    const subt =  (parseFloat(localStorage.valorMetroCubico) *  vaSo).toFixed(2);
+    let total = sobrepasa ? (parseInt(precio) + parseFloat(subt)) : precio;
     const adidcional = `
     <div class="card" style="width: 25rem;">
             <div class="card-header">
@@ -54,7 +84,7 @@ async function busquedaDatos(e) {
             Sub Total : ${localStorage.valorMetroCubico}ctvs * ${vaSo}m3 = 
             <span class="text-primary">${subt}$
             </span></strong></li>
-            <li class="list-group-item"><strong>Total a Pagar Final: ${precio}$ + ${subt}$ = <span class="text-primary">${precio + subt}$</span></strong></li>
+            <li class="list-group-item"><strong>Total a Pagar Final: ${precio}$ + ${subt}$ = <span class="text-primary">${total.toFixed(2)}$</span></strong></li>
 
             </ul>
         </div>
@@ -131,14 +161,25 @@ async function busquedaDatos(e) {
         <button id="recaudacion"
          class="btn btn-primary ${comision ? 'd-none':''}">Realizar Recaudación
          </button>
-         ${comision ? `<div class="ms-MessageBar-text">
-            Este cliente ya realizo el pago de agua potable que corresponde a este mes.
-       </div>` : ''}
+         ${comision ? `<div class="ms-MessageBar ms-MessageBar--success">
+         <div class="ms-MessageBar-content">
+         <div class="ms-MessageBar-icon">
+             <i class="ms-Icon ms-Icon--Completed"></i>
+         </div>
+         <div class="ms-MessageBar-text">
+         Este cliente ya realizo el pago de agua potable que corresponde a este mes.
+         </div>
+         </div>
+         </div>` : ''}
     </div>
     </div>
     `;    
     document.getElementById('container-info').innerHTML = html;
-    activarReporte(codigo);
+    const comisionTable = {
+        ingreso: total,
+        id_casa: codigo
+    };
+    activarReporte(codigo,comisionTable);
     colocarDatosIniciales({
         codigo,
         cedula,
@@ -150,10 +191,9 @@ async function busquedaDatos(e) {
 
 }
 
-
-function activarReporte(codigo) {
+function activarReporte(codigo,dataComision) {
     function interna(){
-        actualizarValores(codigo)
+        actualizarValores(codigo,dataComision)
         .then(convertPDF)
         .catch(console.log)
     }
@@ -231,19 +271,84 @@ function colocarDatosIniciales({
     id.innerHTML = codigo;
 }
 
-async function actualizarValores(codigo) {
+async function actualizarValores(codigo,dataComision) {
+    const  button = document.getElementById('recaudacion');
+    console.log(codigo);
     const data = {
         codigo,
-        update: {
-            comision: true,
-            mora:1
+        data: {
+            comision: 1
         }
     }
-
-    const {ident, mensaje} = await window.modelCobro.updateEstado(data);
-    console.log(ident,mensaje);
+    // realizar el conbro hacia la tabla cobros
+    const {ident,mensaje} = await window.modelCobro.addCobro(dataComision);
     if(ident) {
+        const {ident, mensaje} = await window.modelCobro.updateEstado(data);
+        if(ident) {
+            const div = document.createElement('div');
+            const html = `
+                <div class="ms-MessageBar ms-MessageBar--success">
+                <div class="ms-MessageBar-content">
+                <div class="ms-MessageBar-icon">
+                    <i class="ms-Icon ms-Icon--Completed"></i>
+                </div>
+                <div class="ms-MessageBar-text">
+                Este cliente ya realizo el pago de agua potable que corresponde a este mes.
+                </div>
+                </div>
+                </div>
+            `;
+            div.innerHTML = html;
+            button.classList.add('d-none');
+            button.parentElement.replaceChildren(div);
+            
+    
+        }else {
+            alerta('alert-danger','A ocurrido un error al momento de generar la recaudación,por favor intentelo más tarde.',4000);
+        }
         
+    }else{
+        alerta('alert-danger','A ocurrido un error al momento de generar la recaudación,por favor intentelo más tarde.')
     }
 
+}
+
+function listarCasas(casas) {
+    if(!casas || casas.length <= 0){
+        new Notificacion('El cliente no contiene domicilios suscritos a su nombre.','Regresar');
+        return;
+    }
+    let html ='';
+    casas.forEach(casa => {
+         html += `
+        <div data-codigo="${casa.codigo}" class="card selected-casa" style="width: 18rem;">
+                <div class="card-header">
+                Datos del domicilio
+                </div>
+                    <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Código: </strong>${casa.codigo}</li>
+                    <li class="list-group-item"><strong>Dirección: </strong>${casa.direccion}</li>
+                    </ul>
+                </div>
+                `; 
+    });
+    let htmlHeader = `
+    <div class="card-header">
+        <h5 class="card-title">Seleccione uno de los siguientes domicilios que pertenecen a ${casas[0].nombres} ${casas[0].apellidos}</h5>
+    </div>
+    <div class="card-body" id="con">
+    <div class="d-flex flex-wrap gap-3 justify-content-around">
+        ${html}
+    </div>
+    </div>
+    `;
+    document.getElementById('container-info').innerHTML = htmlHeader;
+
+    document.querySelectorAll('div.card.selected-casa')
+    .forEach(div => {
+        div.addEventListener('click',() => {
+            const codigoCasa = div.dataset.codigo;
+            presentacionDatos(codigoCasa);
+        })
+    })
 }
