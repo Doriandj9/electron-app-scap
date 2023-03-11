@@ -84,26 +84,25 @@ async function habiltarFormulario(e) {
         medidor: med.value.trim(),
         valor_actual: vactmed.value.trim(),
         id_cliente: selecOwners.value.trim(),
+        id_sector: selectHouse.value.trim()
     };
     const dataCasasCategory = {
         id_categorias: selectCategorias.value.trim(),
-        id_casas: localStorage.optionMenu == 3 ? cod.value.trim() : idcod
+        id_casas: data.codigo
     };
 
     const {ident,mensaje} = await window.modelCasa.addCasa(data);
-
-    const {identCa,mensajeCa} = await window.modelCasa.addCasaAndCategory(dataCasasCategory);
-
     if(ident) {
+        const {identCa,mensajeCa} = await window.modelCasa.addCasaAndCategory(dataCasasCategory);
         new Notificacion(`Se ingreso correctamente el domicilio, 
         el codigo que servira para futuras consultas y manipulación de datos 
         es el siguiente. <br><hr> 
         Codigo: <strong>${data.codigo}</strong> <hr> <br>
         Asegurese de brindarle al cliente dicho codigo y recomiendele que lo guarde
         en un lugar seguro.`,'Aceptar',false);
-        listarCasas();
         selecOwners.value = selectHouse.value = 'none';
         cod.value = dir.value = med.value= vactmed.value = ''; 
+        listarCasas();
     }else {
         alerta('alert-danger',mensaje,3000);
     }
