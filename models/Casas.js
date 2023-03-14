@@ -1,10 +1,10 @@
 const {sequelize} = require('./db/conection');
-const {DataTypes} = require('sequelize');
+const {DataTypes,Op} = require('sequelize');
 const Clientes = require('./Clientes');
 class Casas {
     #model;
     #attibutes = ['codigo','direccion','medidor','id_sector',
-    'valor_anterior','valor_actual','id_cliente','mora','comision'];
+    'valor_anterior','valor_actual','id_cliente','mora','comision','deuda'];
     constructor() {
         this.#model = sequelize.define('casas',{
             codigo: {type: DataTypes.STRING, primaryKey: true, autoIncrement:false},
@@ -15,7 +15,8 @@ class Casas {
             id_cliente: DataTypes.STRING,
             id_sector: DataTypes.STRING,
             mora: DataTypes.INTEGER,
-            comision: DataTypes.BOOLEAN
+            comision: DataTypes.BOOLEAN,
+            deuda: DataTypes.INTEGER
         },{
             timestamps: false,
             createdAt: false,
@@ -105,6 +106,65 @@ class Casas {
                 mensaje: error
             }
         }
+    }
+
+    async updateAll(data){
+        try{
+            const res = await this.#model.update(data,{
+                where:{
+                    comision: 1
+                }
+            });
+                
+            return {
+                ident:1,
+                mensaje: 'Comprobacion exitosa'
+            }
+        }catch(error){
+            console.log(error);
+            return {
+                ident:0,
+                mensaje: error
+            }
+        }
+    }
+
+    async cargarMora() {
+        try {
+            const res = await this.#model.findAll({
+                 attributes: ['mora','codigo'],
+                 order:[
+                     ['id','ASC']
+                 ],
+                 where:{
+                    comision: 0
+                },
+                 
+             });
+
+             res.forEach(casa => {
+                const {dataValues:dataV} = casa;
+                const mora = parseInt(dataV.mora) + 1;
+                const update = {
+                    codigo: dataV.codigo,
+                    data: {
+                        mora: mora
+                    }
+                }
+                this.update(update);
+             });
+             return {
+                 ident:1,
+                 data: res
+             };
+             
+         } catch (error) {
+            console.log(error);
+             return {
+                 ident: 0,
+                 mensaje: error
+             }
+         }
     }
 }
 

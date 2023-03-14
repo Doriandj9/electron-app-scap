@@ -1,3 +1,5 @@
+import Notificacion from '../../utiles/Notificacion/Notificacion.js';
+
 let backdrop = document.createElement('div');
 const optOption = {'1': hideMenu1, '2': hideMenu2,'3':hideMenu3};
 const buttonSector = document.querySelector('button#sector');
@@ -45,6 +47,8 @@ function init() {
     const opt = document.querySelector('input[type=radio]:checked') ? document.querySelector('input[type=radio]:checked').value : null;
     if(opt){
         localStorage.optionMenu = opt;
+        localStorage.initApp = true;
+        setDate();
     }
     saveOption(opt);
     }
@@ -213,19 +217,16 @@ buttonMetroCub.addEventListener('click',() => {
 })
 
 
-// Se encarga establecer las fechas de cobros
-/**
- * @var mesesValidacion correspende a los 12 meses del año y si ya fueron pagados co true y si no con false
- */
-const mesesValidacion = [
-    false,false,false,false,false,false,false,false,false,false,false,false
-];
-
+if(localStorage.optionMenu){
+    setDate();
+}
 
 function setDate(){
-    const time  = new Date();
+    const time  = new Date('04-01-2023');
     const month = time.getMonth();
     const year = time.getFullYear();
+    if(!localStorage.timeSend) localStorage.timeSend = time;
+    if(!localStorage.validationRun) localStorage.validationRun = false;
     let timeInit = 'month-01-year';
     timeInit = timeInit.replace('year',year);
     timeInit = timeInit.replace('month',month + 1);
@@ -234,6 +235,47 @@ function setDate(){
     timeLimit = timeLimit.replace('year',year);
     timeLimit = timeLimit.replace('month',month + 2);
     timeLimit = new Date(timeLimit);
+    const dateInfo = {
+        timeInit: timeInit,
+        timeFinish: timeLimit
+    };
+    const limitTimeCom = new Date(localStorage.timeSend)
+    if(time.getTime() >= limitTimeCom.getTime() && 
+        timeLimit.getTime() !== limitTimeCom.getTime()
+    ){
+        if(localStorage.initApp != 'true'){
+            cargarMora();
+        }
+        localStorage.validationRun = false;
+        localStorage.initApp = false;
+    }
+
+    localStorage.timeValues = JSON.stringify(dateInfo);
+    if(time.getTime() <= timeLimit.getTime()){
+        if(localStorage.validationRun && localStorage.validationRun == 'false')
+        {
+            comprobarCobros();
+            localStorage.timeSend = timeLimit;
+            localStorage.validationRun = true;
+        }
+    }
+
+    
 }
 
-setDate();
+async function comprobarCobros() {
+    const data = {
+        comision: 0,
+    }
+
+    const {ident,mensaje} = await window.modelCobro.verifyCobros(data);
+
+    if(!ident){
+        new Notificacion('Erro: Un elemento importante para el funcionamiento de la aplicacion no se ejecuto correctamente, por favor reinicie la aplicacion, cierre y vuelva abrirlo.','Aceptar');
+    }
+    
+}
+
+async function cargarMora() {
+    const {ident,data} = await window.modelCobro.loadMora();
+}

@@ -70,6 +70,12 @@ ipcMain.handle('op:cobro.casas', async (e,codigo) => {
 ipcMain.handle('op:cobro.update.estado', async (e,data) => {
     return await casas.update(data);   
 })
+ipcMain.handle('op:cobro.verify.cobros', async (e,data) => {
+    return await casas.updateAll(data);   
+})
+ipcMain.handle('op:cobro.mora', async () => {
+    return await casas.cargarMora();
+})
 
 
 ipcMain.handle('op:reporte', (e,data) => {

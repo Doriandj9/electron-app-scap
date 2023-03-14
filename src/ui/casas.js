@@ -84,7 +84,10 @@ async function habiltarFormulario(e) {
         medidor: med.value.trim(),
         valor_actual: vactmed.value.trim(),
         id_cliente: selecOwners.value.trim(),
-        id_sector: selectHouse.value.trim()
+        id_sector: selectHouse.value.trim(),
+        comision: 0,
+        mora:0,
+        deuda: 0
     };
     const dataCasasCategory = {
         id_categorias: selectCategorias.value.trim(),

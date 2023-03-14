@@ -67,7 +67,7 @@ class Cobros  {
             clientes.nombres as nombres, clientes.apellidos as apellidos, 
             casas.codigo as codigo, casas.direccion as direccion, casas.medidor,
             casas.valor_anterior as valor_anterior, casas.valor_actual as valor_actual,
-            casas.mora as mora, casas.comision as comision,
+            casas.mora as mora, casas.comision as comision,casas.deuda as deuda,
             categorias.nombre as nombre_categoria, categorias.precio as precio,
             categorias.max_agua as consumo,
             sectores.codigo as codigo_sector, sectores.detalle as nombre_sector

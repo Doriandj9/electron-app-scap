@@ -27,6 +27,8 @@ contextBridge.exposeInMainWorld('modelCobro',{
     infoCobro(codigo){return ipcRenderer.invoke('op:cobro.info',codigo)},
     updateEstado(data) {return ipcRenderer.invoke('op:cobro.update.estado',data)},
     allCasas(codigo){return ipcRenderer.invoke('op:cobro.casas',codigo)},
+    verifyCobros(data) {return ipcRenderer.invoke('op:cobro.verify.cobros',data)},
+    loadMora() {return ipcRenderer.invoke('op:cobro.mora')}
 })
 contextBridge.exposeInMainWorld('reporte',{
     reporte(data){return ipcRenderer.invoke('op:reporte',data)}
