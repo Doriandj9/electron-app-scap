@@ -138,6 +138,28 @@ class Cobros  {
         }
     }
 
+    async update({id,data}) {
+        try{
+            const res = await this.#model.update(data,{
+                where: {
+                    id: id
+                }
+            });
+            if(res[0] <= 0) throw Error('Error: A ocurrido un error al momento de actualizar.');
+            
+            return {
+                ident:1,
+                mensaje: 'Se actualizo correctamente.'
+            }
+        }catch(error){
+            console.log(error);
+            return {
+                ident:0,
+                mensaje: error
+            }
+        }
+    }
+
 }
 
 module.exports = Cobros;

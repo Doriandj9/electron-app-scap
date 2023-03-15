@@ -35,7 +35,10 @@ contextBridge.exposeInMainWorld('modelConsulta',{
     all(){return ipcRenderer.invoke('op:consulta.all')},
     queryOp(data){return ipcRenderer.invoke('op:consulta.query.op',data)}
 })
-
+contextBridge.exposeInMainWorld('modelCompra',{
+    all(){return ipcRenderer.invoke('op:compra.all')},
+    insert(data){return ipcRenderer.invoke('op:compra.insert',data)}
+})
 contextBridge.exposeInMainWorld('reporte',{
     reporte(data){return ipcRenderer.invoke('op:reporte',data)}
 })

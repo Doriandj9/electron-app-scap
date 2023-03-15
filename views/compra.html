@@ -1,1 +1,59 @@
-<input class="btn btn-primary" type="file" accept=".pdf" id="view">
+<h4 class="mt-2 h5 border border-1 border-dark border-opacity-25 pb-2
+border-top-0 border-end-0 border-start-0 ps-4">Compras realizadas por la empresa.</h4>
+<p class="pt-2 ps-5 pe-5 pb-2">
+    Esta sección del sistema le permite ingresar los datos de las compras que se realizaron,
+    como mangeras, herramientas de perforación etc. <br>
+    La cual sera almacenada en la base de datos indicado el nombre del producto y cuanto invertio 
+    en el producto el cual sera descontado del valor de la caja presupuestaria. 
+</p>
+<h5 class="text-center">Registre una nueva compra.</h5>
+<div class="mt-2 d-flex justify-content-center h-100 align-items-center">
+    <div class="w-50">
+    <form class=" border p-3 border-1 border-dark-subtle" id="form-compras">
+        <div class="mb-3" id="limit-category">
+            <label class="ms-Label">Presupuesto disponble </label>
+            <input id="total" type="text" value="0$" disabled class="ms-TextField-field fw-bold"  placeholder="">
+            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+        </div>
+        <div class="mb-3">
+          <label class="ms-Label is-required">Ingrese el nombre del producto</label>
+          <input type="text" id="nombre" class="ms-TextField-field fw-bold" placeholder="Por ejemplo: Mangeras de agua...">
+          <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+        </div>
+        <div class="mb-3">
+            <label class="ms-Label is-required">Ingrese el precio total que invertio</label>
+            <input id="precio" type="text" class="ms-TextField-field fw-bold" placeholder="Por ejemplo: 55$...">
+            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+        </div>
+        <div class="mb-3">
+            <label class="ms-Label is-required">Ingrese la cantidad comprada</label>
+            <input id="cantidad" type="text" class="ms-TextField-field fw-bold" placeholder="Por ejemplo: 2 rollos...">
+            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+        </div>
+        <button class="ms-Button ms-Button--primary">
+            <span class="ms-Button-label">Registrar Compra</span> 
+          </button>
+    </form>
+    </div>
+</div>
+
+<h4 class="mt-2 h5 border border-1 border-dark border-opacity-25 pb-2
+border-top-0 border-end-0 border-start-0 ps-4">Listado de compras realizadas</h4>
+
+<table class="table table-bordered border-primary">
+    <thead>
+      <tr>
+        <th>Nº</th>
+        <th>Nombre del producto</th>
+        <th>Precio invertido</th>
+        <th>Cantidad del producto</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="4" class="text-center">
+            <span class="h3 ">De momento no contiene compras realizadas.</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>

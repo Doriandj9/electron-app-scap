@@ -6,6 +6,7 @@ const Casas = require('./../models/Casas');
 const CasasCategorias = require('./../models/CasasCategorias');
 const Cobros = require('./../models/Cobros');
 const generateReporte = require('./reportes');
+const Compras = require('../models/Compras');
 
 
 const categoria = new Categorias();
@@ -14,7 +15,7 @@ const clientes = new Clientes();
 const casas = new Casas();
 const casasCategorias = new CasasCategorias;
 const cobros = new Cobros;
-
+const compras = new Compras;
 
 ipcMain.handle('op:category.add',async (e,data) => {
     return await categoria.insert(data);
@@ -83,6 +84,15 @@ ipcMain.handle('op:consulta.all', async () => {
 ipcMain.handle('op:consulta.query.op', async (e,data) => {
     return await cobros.queryOp(data);
 })
+
+ipcMain.handle('op:compra.all', async () => {
+    return await compras.all();
+})
+ipcMain.handle('op:compra.insert', async (e,data) => {
+    return await compras.manejoCaja(data);
+})
+
+
 ipcMain.handle('op:reporte', (e,data) => {
     return  generateReporte(data);
 })
