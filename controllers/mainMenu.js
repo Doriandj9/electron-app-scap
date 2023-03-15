@@ -91,7 +91,9 @@ ipcMain.handle('op:compra.all', async () => {
 ipcMain.handle('op:compra.insert', async (e,data) => {
     return await compras.manejoCaja(data);
 })
-
+ipcMain.handle('op:database.backup', async () => {
+    return await cobros.all();
+})
 
 ipcMain.handle('op:reporte', (e,data) => {
     return  generateReporte(data);
