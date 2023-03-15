@@ -116,6 +116,28 @@ class Cobros  {
         }
     }
 
+    async queryOp({start,end}) {
+        console.log(start,end);
+        try {
+            const results = await sequelize.query(`
+            SELECT * FROM cobros WHERE fecha BETWEEN ? AND ?
+            `,{
+                replacements: [start,end],
+                type: QueryTypes.SELECT
+            });
+            return {
+                ident:1,
+                data: results
+            };
+        } catch (error) {
+            console.log(error);
+            return {
+                ident:0,
+                mensaje: error
+            };
+        }
+    }
+
 }
 
 module.exports = Cobros;

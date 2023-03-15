@@ -77,7 +77,12 @@ ipcMain.handle('op:cobro.mora', async () => {
     return await casas.cargarMora();
 })
 
-
+ipcMain.handle('op:consulta.all', async () => {
+    return await cobros.all();
+})
+ipcMain.handle('op:consulta.query.op', async (e,data) => {
+    return await cobros.queryOp(data);
+})
 ipcMain.handle('op:reporte', (e,data) => {
     return  generateReporte(data);
 })

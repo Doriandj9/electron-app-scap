@@ -30,6 +30,12 @@ contextBridge.exposeInMainWorld('modelCobro',{
     verifyCobros(data) {return ipcRenderer.invoke('op:cobro.verify.cobros',data)},
     loadMora() {return ipcRenderer.invoke('op:cobro.mora')}
 })
+
+contextBridge.exposeInMainWorld('modelConsulta',{
+    all(){return ipcRenderer.invoke('op:consulta.all')},
+    queryOp(data){return ipcRenderer.invoke('op:consulta.query.op',data)}
+})
+
 contextBridge.exposeInMainWorld('reporte',{
     reporte(data){return ipcRenderer.invoke('op:reporte',data)}
 })
