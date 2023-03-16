@@ -1,5 +1,6 @@
 const {Sequelize} = require('sequelize');
 const {ipcMain} = require('electron');
+const {backup} = require('./../../controllers/database');
 const fs = require('fs');
 const path = require('path');
 let sequelize = null;
@@ -12,6 +13,9 @@ fs.readFile(path.join(__dirname,'confg.json'),'utf8',(err,data) => {
     const {config} = JSON.parse(data);
     sequelize = new Sequelize(config.dbname,config.user,config.clave,config.server);
     conect();
+    backup()
+    .then(console.log)
+    .catch(console.log);
 })
 
 

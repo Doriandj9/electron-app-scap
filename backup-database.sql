@@ -23,14 +23,19 @@ DROP TABLE IF EXISTS `casas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `casas` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `codigo` varchar(15) NOT NULL,
   `direccion` varchar(80) NOT NULL,
   `medidor` varchar(45) DEFAULT NULL,
   `valor_anterior` varchar(50) DEFAULT NULL,
   `valor_actual` varchar(50) DEFAULT NULL,
   `id_cliente` varchar(10) NOT NULL,
-  `fecha` datetime NOT NULL,
-  PRIMARY KEY (`codigo`)
+  `id_sector` varchar(15) DEFAULT NULL,
+  `mora` int DEFAULT NULL,
+  `comision` tinyint(1) DEFAULT NULL,
+  `deuda` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`,`codigo`),
+  UNIQUE KEY `codigo_UNIQUE` (`codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -54,7 +59,7 @@ CREATE TABLE `casas_categorias` (
   `id_casas` varchar(15) NOT NULL,
   `id_categorias` int NOT NULL,
   PRIMARY KEY (`id_casas`,`id_categorias`),
-  UNIQUE KEY `id_categrias_UNIQUE` (`id_categorias`)
+  UNIQUE KEY `id_casas_UNIQUE` (`id_casas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -80,7 +85,7 @@ CREATE TABLE `categorias` (
   `max_agua` varchar(45) DEFAULT NULL,
   `precio` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,7 +94,6 @@ CREATE TABLE `categorias` (
 
 LOCK TABLES `categorias` WRITE;
 /*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
-INSERT INTO `categorias` VALUES (1,'prueba','130m3',12),(2,'Familia','30m3',12),(3,'Previo','',154),(4,'Familiar','125',4),(5,'Otro mas','1588',45),(6,'Ot','458',45),(7,'aa','2131',12),(8,'121as','2321',12),(9,'1231','2131231',12312),(10,'1231','123131',2131231),(11,'1213','12',2);
 /*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,7 +121,6 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES ('0215186665','Mario Jose','Flores Canto','dsadsa','',NULL),('0215899965','Daniel Josue','Paredes Pacha','','',NULL),('0250186665','asda','sadasda','','',NULL),('0258746697','Pedro Jose','Barragan Mora','mmora@gmail.com','0989960587',NULL);
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,8 +133,10 @@ DROP TABLE IF EXISTS `cobros`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cobros` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `ingreso` int NOT NULL,
+  `ingreso` double NOT NULL,
   `fecha` date NOT NULL,
+  `acometida` tinyint(1) DEFAULT NULL,
+  `detalle` varchar(250) DEFAULT NULL,
   `id_casa` varchar(15) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -144,6 +149,31 @@ CREATE TABLE `cobros` (
 LOCK TABLES `cobros` WRITE;
 /*!40000 ALTER TABLE `cobros` DISABLE KEYS */;
 /*!40000 ALTER TABLE `cobros` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `compras`
+--
+
+DROP TABLE IF EXISTS `compras`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `compras` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(75) NOT NULL,
+  `precio` double NOT NULL,
+  `cantidad` varchar(95) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `compras`
+--
+
+LOCK TABLES `compras` WRITE;
+/*!40000 ALTER TABLE `compras` DISABLE KEYS */;
+/*!40000 ALTER TABLE `compras` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -193,7 +223,6 @@ CREATE TABLE `sectores` (
 
 LOCK TABLES `sectores` WRITE;
 /*!40000 ALTER TABLE `sectores` DISABLE KEYS */;
-INSERT INTO `sectores` VALUES ('ALP','Apachaca',NULL);
 /*!40000 ALTER TABLE `sectores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,4 +260,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-26 23:33:52
+-- Dump completed on 2023-03-15 20:45:51
