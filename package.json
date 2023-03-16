@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "./app/main.js",
+  "productName": "SCAP",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "build": "electron-packager ."
+    "build": "npm run build-win",
+    "build-win": "electron-packager . --platform=win32 --out=build --icons=agua.ico --overwrite"
   },
   "keywords": [],
   "author": "",
