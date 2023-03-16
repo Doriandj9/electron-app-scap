@@ -35,6 +35,7 @@ class Usuarios {
     }
 
     async insert(data){
+        data.clave = encrypt(data.clave);
         try{
             await this.#model.create(data);
             return {
