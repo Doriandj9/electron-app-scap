@@ -2,7 +2,6 @@ const {app, BrowserWindow,Menu} = require('electron');
 const templateMenu = require('./menu-aplication');
 const path = require('path');
 const generateReporte = require('../controllers/reportes');
-const backup  = require('../controllers/database');
 
 // la variable que contendra la pantalla prinicpal de forma global
 let mainWindow = null;
