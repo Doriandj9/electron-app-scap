@@ -46,6 +46,3 @@ contextBridge.exposeInMainWorld('reporte',{
     reporte(data){return ipcRenderer.invoke('op:reporte',data)}
 })
 
-contextBridge.exposeInMainWorld('usuario',{
-    reporte(data){return ipcRenderer.invoke('op:usuario.insert',data)}
-})

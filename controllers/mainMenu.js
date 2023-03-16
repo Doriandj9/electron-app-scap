@@ -103,6 +103,3 @@ ipcMain.handle('op:reporte', (e,data) => {
     return  generateReporte(data);
 })
 
-ipcMain.handle('op:usuario.insert', async (e,data) => {
-    return  await usuarios.insert();
-})

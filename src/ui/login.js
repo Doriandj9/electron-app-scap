@@ -1,3 +1,5 @@
+import Notificacion from './../../utiles/Notificacion/Notificacion.js';
+
 const datosDB = document.getElementById('data-db');
 const contentDB = document.getElementById('content-data')
 const formDB = document.getElementById('form-data-db');
@@ -120,6 +122,36 @@ function actualizarDatos(e){
                 dialogo();
             }else {
                 const div = document.createElement('div');
+                if(!localStorage.login){
+                  div.innerHTML = `<div class="docs-DialogExample-lgHeader" >
+                  <div class="ms-Dialog ms-Dialog--lgHeader" style="width: 75rem;">
+                    <div class="ms-Dialog-title">Exito, ahora por favor ingrese un usuario administrador</div>
+                    <div class="ms-Dialog-content">
+                      <form class=" border p-3 border-1 border-dark-subtle" id="form-category">
+                          <div class="mb-3">
+                            <label class="ms-Label is-required">Ingrese un nombre de usuario</label>
+                            <input id="user-init" type="text" class="ms-TextField-field fw-bold" placeholder="Por ejemplo: juan@administrador">
+                            <div id="emailHelp" class="form-text">Se le recomienda ingresar un @ para que el usuario no sea un nombre comun</div>
+                          </div>
+                          <div class="mb-3">
+                              <label class="ms-Label is-required">Ingrese el una contaseña</label>
+                              <input id="clave-init" type="text" class="ms-TextField-field fw-bold" placeholder="Por ejemplo: admin022#123">
+                              <div id="emailHelp" class="form-text">Esta contraseña sera encryptada para mayor seguridad</div>
+                          </div>
+                      </form>
+                    </div>
+                    <div class="ms-Dialog-actions">
+                      <button class="ms-Button ms-Dialog-action  ms-Button--primary">
+                        <span class="ms-Button-label">Agregar</span> 
+                      </button>
+                    </div>
+                  </div>
+                  </div>
+                  `;
+                  document.body.prepend(div);
+                  dialogo(div,'user');
+                  localStorage.login = true;
+                }else{
                 div.innerHTML = `
                 <div class="docs-DialogExample-lgHeader">
                 <div class="ms-Dialog ms-Dialog--lgHeader">
@@ -140,9 +172,12 @@ function actualizarDatos(e){
                 `;
                 document.body.prepend(div);
                 dialogo(div);
+              }
+
+               
                 formDB.classList.add('d-none');
             }
-            function dialogo (div)  {
+             function dialogo (div,option='')  {
                 try{
                     var example = document.querySelector(".docs-DialogExample-lgHeader");
                     // var button = example.querySelector(".docs-DialogExample-button");
@@ -156,8 +191,24 @@ function actualizarDatos(e){
                       actionButtonComponents = new fabric['Button'](actionButtonElement, actionHandler);
                     // When clicking the button, open the dialog
                       openDialog(dialog);
-                    function actionHandler(event) {
-                      div.remove();
+                      async function actionHandler(event) {
+                      if(option === 'user'){
+                          const nombre = document.getElementById('user-init').value.trim();
+                          const clave = document.getElementById('clave-init').value.trim();
+                          const data = {
+                            nombre,
+                            clave
+                          };
+                          const {ident,mensaje} = await window.usuario.insert(data);
+                          if(ident){
+                            new Notificacion('Se ingreso correctamente el usuario ingreso al sistema','Aceptar',false);
+                          }else{
+                            new Notificacion('Error: No se ingreso el usuario,puede deberse a que el usuario ya existe, intentelo más tarde, cierre la aplicación y vuelva abrirla. ','Regresar');
+                          } 
+                          div.remove();
+                      }else{
+                        div.remove();
+                      }
                     }
                     function openDialog(dialog) {
                       // Open the dialog

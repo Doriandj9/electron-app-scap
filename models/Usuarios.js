@@ -35,7 +35,7 @@ class Usuarios {
     }
 
     async insert(data){
-        data.clave = encrypt(data.clave);
+        data.clave = await encrypt(data.clave);
         try{
             await this.#model.create(data);
             return {
@@ -43,6 +43,7 @@ class Usuarios {
                 mensaje: 'Se ingreso correctamente.'
             }
         }catch(error){
+            console.log(error);
             return {
                 ident:0,
                 mensaje: error

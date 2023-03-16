@@ -13,6 +13,9 @@ ipcMain.handle('db:usuarios.aut',async (e,data) => {
     return {mensaje: 'Usuario o contraseña incorrectos.'};
 })
 
+ipcMain.handle('op:usuario.insert', async (e,data) => {
+    return  await user.insert(data);
+});
 
 const createWindow = () => {
     menuWindow = new BrowserWindow({
