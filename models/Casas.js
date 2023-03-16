@@ -3,11 +3,12 @@ const {DataTypes,Op} = require('sequelize');
 const Clientes = require('./Clientes');
 class Casas {
     #model;
-    #attibutes = ['codigo','direccion','medidor','id_sector',
+    #attibutes = ['id','codigo','direccion','medidor','id_sector',
     'valor_anterior','valor_actual','id_cliente','mora','comision','deuda'];
     constructor() {
         this.#model = sequelize.define('casas',{
-            codigo: {type: DataTypes.STRING, primaryKey: true, autoIncrement:false},
+            id: {type: DataTypes.INTEGER,primaryKey: true, autoIncrement: true},
+            codigo: {type: DataTypes.STRING, primaryKey: true, autoIncrement:false,unique: true},
             direccion: DataTypes.STRING,
             medidor: DataTypes.STRING,
             valor_anterior: DataTypes.STRING,

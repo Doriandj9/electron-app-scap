@@ -2,7 +2,7 @@ const {sequelize} = require('./db/conection');
 const {DataTypes} = require('sequelize');
 class CasasCategorias {
     #model;
-    #attibutes = ['codigo','detalle','id_usuarios'];
+    #attibutes = ['id_casas','id_categorias'];
     constructor() {
         this.#model = sequelize.define('casas_categorias',{
             id_casas: {type: DataTypes.STRING, primaryKey: true, autoIncrement:false},

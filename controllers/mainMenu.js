@@ -7,6 +7,7 @@ const CasasCategorias = require('./../models/CasasCategorias');
 const Cobros = require('./../models/Cobros');
 const generateReporte = require('./reportes');
 const Compras = require('../models/Compras');
+const { backup } = require('./database');
 
 
 const categoria = new Categorias();
@@ -92,7 +93,7 @@ ipcMain.handle('op:compra.insert', async (e,data) => {
     return await compras.manejoCaja(data);
 })
 ipcMain.handle('op:database.backup', async () => {
-    return await cobros.all();
+    return await backup();
 })
 
 ipcMain.handle('op:reporte', (e,data) => {
