@@ -12,7 +12,7 @@ async function newPage(page){
     const query = await fetch('./../views/' + page)
     const text = await query.text();
     div.innerHTML = `
-    <div class="container-fluid">${text}</div>
+    <div class="container-fluid contenedor-page">${text}</div>
     `;
     div.prepend(returnHtml);
 

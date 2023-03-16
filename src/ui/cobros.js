@@ -10,7 +10,7 @@ export function init() {
 }
 
 function run () {
-    if(localStorage.optionMenu == 3 && !localStorage.valorMetroCubico){
+    if(!localStorage.valorMetroCubico){
         new Notificacion(`Por favor ingrese el valor de metro cubico 
         en el menu principal para poder realizar los cobros.`,'Regresar');
         return;

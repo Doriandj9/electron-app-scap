@@ -50,6 +50,15 @@ body{
     overflow:hidden;
     cursor: pointer;
 }
+.retorno{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 500;
+}
+.contenedor-page{
+    margin-top: 4rem;
+}
 .contenedor-alert-1 {
     width: auto;
     position: fixed;

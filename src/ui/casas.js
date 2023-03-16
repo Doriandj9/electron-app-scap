@@ -44,13 +44,6 @@ async function listarCasas() {
 async function habiltarFormulario(e) {
     e.preventDefault();
     const form = this;
-    let idcod = null;
-    if(localStorage.optionMenu != 3) {
-       const lastHouse = casas.length !== 0 ? casas.at(-1) : {codigo: '0'};
-       const codi = lastHouse.codigo;
-       idcod = codi ? parseInt(codi) + 1 : 1; 
-       idcod = String(idcod);
-    }
     const [cod,dir,med,vactmed] = form.querySelectorAll('input');
     const [selecOwners,selectHouse,selectCategorias] = form.querySelectorAll('select');
     if(selecOwners.value.trim() === 'none'){
@@ -79,7 +72,7 @@ async function habiltarFormulario(e) {
         return
     }
     const data = {
-        codigo: localStorage.optionMenu == 3 ? cod.value.trim() : idcod,
+        codigo: cod.value.trim(),
         direccion: dir.value.trim(),
         medidor: med.value.trim(),
         valor_actual: vactmed.value.trim(),
@@ -112,9 +105,6 @@ async function habiltarFormulario(e) {
 } 
 
 async function habilitarFormInputs(form) {
-    if(localStorage.optionMenu != 3) {
-        document.querySelectorAll('[menu-avanced]').forEach(d => d.classList.add('d-none'));
-    }
     const [selecOwners,selectHouse,selectCategorias] = form.querySelectorAll('select');
     const clientes = await window.modelCliente.allCliente();
     const sectores = await window.modelSector.allSector();

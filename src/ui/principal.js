@@ -1,7 +1,6 @@
 import Notificacion from '../../utiles/Notificacion/Notificacion.js';
 
 let backdrop = document.createElement('div');
-const optOption = {'1': hideMenu1, '2': hideMenu2,'3':hideMenu3};
 const buttonSector = document.querySelector('button#sector');
 const buttonCategoria = document.querySelector('button#add-category');
 const buttonCliente = document.querySelector('button#cliente');
@@ -15,10 +14,8 @@ const buttonMora = document.querySelector('button#mora');
 const buttonRespaldo = document.querySelector('button#respaldo');
 const buttonMetroCub = document.querySelector('button#valor-m3');
 
-if(!localStorage.optionMenu){
+if(!localStorage.initApp){
     init();
-}else {
-    saveOption(localStorage.optionMenu);
 }
 
 function init() {
@@ -44,25 +41,18 @@ function init() {
       dialogComponent.open();
 
     function actionHandler(event) {
-    const opt = document.querySelector('input[type=radio]:checked') ? document.querySelector('input[type=radio]:checked').value : null;
+    const opt = document.getElementById('name-junta')
     if(opt){
-        localStorage.optionMenu = opt;
+        localStorage.nombreJunta = opt.value.trim();
         localStorage.initApp = true;
         setDate();
+        document.getElementById('nombre-junta').textContent = localStorage.nombreJunta;
     }
-    saveOption(opt);
+    backdrop.remove();
     }
 };
 
-function saveOption(opt){
-    if(opt){
-        optOption[opt.trim()]();
-        backdrop.remove();
-    }else{
-        alert('Por favor, debe seleccionar una opción para continuar.');
-        location.reload();
-    }
-}
+
 
 function printBacdrop() {
     backdrop.className= 'backdrop-init';
@@ -70,28 +60,6 @@ function printBacdrop() {
 }
 
 
-function hideMenu1() {
-    const buttons = document.querySelectorAll('button[menu-basic]');
-    buttons.forEach(b => {
-        b.classList.remove('d-none');
-    })
-}
-function hideMenu2() {
-    const buttons = document.querySelectorAll('button[menu-basic]');
-    const buttonsMedio = document.querySelectorAll('button[menu-medium]');
-    buttons.forEach(b => {
-        b.classList.remove('d-none');
-    })
-    buttonsMedio.forEach(b => {
-        b.classList.remove('d-none');
-    })
-}
-function hideMenu3() {
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(b => {
-        b.classList.remove('d-none');
-    })
-}
 
 
 function verifiDisplay(button) {
@@ -217,12 +185,14 @@ buttonMetroCub.addEventListener('click',() => {
 })
 
 
-if(localStorage.optionMenu){
+
+if(localStorage.initApp){
+    document.getElementById('nombre-junta').textContent = localStorage.nombreJunta;
     setDate();
 }
 
 function setDate(){
-    const time  = new Date('04-01-2023');
+    const time  = new Date();
     const month = time.getMonth();
     const year = time.getFullYear();
     if(!localStorage.timeSend) localStorage.timeSend = time;
@@ -279,3 +249,4 @@ async function comprobarCobros() {
 async function cargarMora() {
     const {ident,data} = await window.modelCobro.loadMora();
 }
+

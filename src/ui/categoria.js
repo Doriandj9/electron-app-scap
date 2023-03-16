@@ -11,7 +11,6 @@ function run() {
     listCategories();
     const form = document.getElementById('form-category');
     form.addEventListener('submit',envioDatos);
-    verOpMenu();
     opInputs();
 }
 
@@ -58,13 +57,6 @@ async function listCategories() {
         `;
     });
     document.querySelector('tbody').innerHTML = html;
-}
-
-function verOpMenu() {
-    const categ = document.querySelector('#limit-category');
-    if(localStorage.optionMenu && localStorage.optionMenu != 3){
-        categ.style.display = 'none';
-    }
 }
 
 function opInputs() {
