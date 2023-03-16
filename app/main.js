@@ -3,7 +3,7 @@ const templateMenu = require('./menu-aplication');
 const path = require('path');
 // la variable que contendra la pantalla prinicpal de forma global
 let mainWindow = null;
-
+if (require('electron-squirrel-startup')) app.quit();
 // Creamos la ventana principal
 const createMainWindow = () => {
     Menu.setApplicationMenu(templateMenu);

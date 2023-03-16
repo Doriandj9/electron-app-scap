@@ -1,26 +1,35 @@
 {
   "name": "proyecto_agua",
   "version": "1.0.0",
-  "description": "",
+  "description": "Aplicacion para cobros de agua potable",
   "main": "./app/main.js",
   "productName": "SCAP",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron .",
-    "build": "npm run build-win",
-    "build-win": "electron-packager . --platform=win32 --out=build --icons=agua.ico --overwrite"
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish"
   },
   "keywords": [],
-  "author": "",
+  "author": "Dorian Armijos",
   "license": "ISC",
   "dependencies": {
     "@lesjoursfr/html-to-pdf": "^2.1.2",
     "animate.css": "4.1.1",
     "bcryptjs": "2.4.3",
     "bootstrap": "5.3.0-alpha1",
-    "electron": "23.0.0",
+    "electron-squirrel-startup": "^1.0.0",
     "mysql2": "3.1.2",
     "sequelize": "6.28.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.5",
+    "@electron-forge/maker-deb": "^6.0.5",
+    "@electron-forge/maker-rpm": "^6.0.5",
+    "@electron-forge/maker-squirrel": "^6.0.5",
+    "@electron-forge/maker-zip": "^6.0.5",
+    "@electron-forge/publisher-s3": "^6.0.5",
+    "electron": "^23.0.0"
   }
-  
 }
