@@ -1,1 +1,1 @@
-{"config":{"dbname":"","user":"","clave":"","server":{"host":"","dialect":"mysql","port":3306}}}
+{"config":{"dbname":"scap","user":"root","clave":"","server":{"host":"localhost","dialect":"mysql","port":3306}}}

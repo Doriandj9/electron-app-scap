@@ -47,6 +47,15 @@ function init() {
         localStorage.initApp = true;
         setDate();
         document.getElementById('nombre-junta').textContent = localStorage.nombreJunta;
+        async function envio() {
+        const valor = document.getElementById('valor-caja')
+            const data = {
+                ingreso: parseFloat(valor.value.trim()),
+                id_casa: '00-00'
+            }
+            await window.modelCobro.addCobro(data);
+        }
+        envio();
     }
     backdrop.remove();
     }
@@ -249,4 +258,3 @@ async function comprobarCobros() {
 async function cargarMora() {
     const {ident,data} = await window.modelCobro.loadMora();
 }
-

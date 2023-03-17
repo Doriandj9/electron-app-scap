@@ -140,13 +140,20 @@
     <!-- <div class="modal-dialog"> -->
         <div class="docs-DialogExample-blocking">
             <div class="ms-Dialog ms-Dialog--blocking">
-              <div class="ms-Dialog-title">Ingrese el nombre de la junta,</div>
+              <div class="ms-Dialog-title">Ingrese el nombre de la junta.</div>
                 <div class="ms-ChoiceFieldGroup" id="choicefieldgroup" role="radiogroup">
                     <div class="ms-ChoiceFieldGroup-title">
                       <label class="ms-Label is-required">Ingrese el nombre</label>
                     </div>
-                      <input type="text" class="ms-TextField-field" id="name-junta">
+                      <input type="text" placeholder="Por ejemplo: Juanta 2" class="ms-TextField-field" id="name-junta">
                   </div>
+                  <div class="ms-ChoiceFieldGroup" id="choicefieldgroup" role="radiogroup">
+                  <div class="ms-Dialog-title">Ingrese el valor inicial de la caja.</div>
+                <div class="ms-ChoiceFieldGroup-title">
+                  <label class="ms-Label is-required">Ingrese el valor, solo números</label>
+                </div>
+                  <input type="number" step="0.01" placeholder="Por ejemplo: 250.30" class="ms-TextField-field" id="valor-caja">
+              </div>
                   <div class="ms-Dialog-actions">
                     <button class="ms-Button ms-Dialog-action ms-Button--primary">
                       <span class="ms-Button-label">Guardar</span> 
