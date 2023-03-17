@@ -313,6 +313,17 @@ function colocarDatosIniciales({
     const totalF = document.getElementById('total');
     const deudaHtml = document.getElementById('deuda-pdf');
     const id = document.getElementById('id');
+
+    const date2 = document.getElementById('date-2');
+    const hour2 = document.getElementById('hour-2');
+    const cedulaIn2 = document.getElementById('cedula-2');
+    const names2 = document.getElementById('name-2');
+    const lastnames2 = document.getElementById('lastname-2');
+    const consumo2 = document.getElementById('consumo-2');
+    const totalF2 = document.getElementById('total-2');
+    const deudaHtml2 = document.getElementById('deuda-pdf-2');
+    const id2 = document.getElementById('id-2');
+
     const dateTime = new Date();
     const ilt = Intl.DateTimeFormat('es',{
         day:"2-digit",
@@ -333,13 +344,29 @@ function colocarDatosIniciales({
     consumo.innerHTML = consumoFinal + 'm3';
     totalF.innerHTML = total + '$';
 
+    date2.textContent = ilt(dateTime);
+    hour2.textContent = itlh(dateTime);
+
+    cedulaIn2.innerHTML = cedula;
+    names2.innerHTML = nombres;
+    lastnames2.innerHTML = apellidos;
+
+    consumo2.innerHTML = consumoFinal + 'm3';
+    totalF2.innerHTML = total + '$';
+
     if(partes){
         deudaHtml.textContent = deuda + '$';
+        deudaHtml2.textContent = deuda + '$';
+
     }else{
         deudaHtml.textContent = '0$';
+        deudaHtml2.textContent = '0$';
+
     }
 
     id.innerHTML = codigo;
+    id2.innerHTML = codigo;
+
 }
 
 async function actualizarValores(codigo,dataComision) {

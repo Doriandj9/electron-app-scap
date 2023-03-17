@@ -28,30 +28,30 @@ const template = [
             }
 
         ]
-    },
-    {
-        label: 'Ayuda',
-        submenu: [
-            {
-                label: 'Deplegar Herramienta de desarrollador',
-                accelerator: 'Ctrl+Mayus+I',
-                click(menuItem,windowFocus) {
-                    if(windowFocus) {
-                        windowFocus.webContents.toggleDevTools();
-                    }
-                }
-            },
-            {
-                label: 'Recargar',
-                accelerator: 'Ctrl+R',
-                click(menuItem,windowFocus) {
-                    if(windowFocus) {
-                        windowFocus.reload();
-                    }
-                }
-            }
-        ]
     }
+    // {
+    //     label: 'Ayuda',
+    //     submenu: [
+    //         {
+    //             label: 'Deplegar Herramienta de desarrollador',
+    //             accelerator: 'Ctrl+Mayus+I',
+    //             click(menuItem,windowFocus) {
+    //                 if(windowFocus) {
+    //                     windowFocus.webContents.toggleDevTools();
+    //                 }
+    //             }
+    //         },
+    //         {
+    //             label: 'Recargar',
+    //             accelerator: 'Ctrl+R',
+    //             click(menuItem,windowFocus) {
+    //                 if(windowFocus) {
+    //                     windowFocus.reload();
+    //                 }
+    //             }
+    //         }
+    //     ]
+    // }
 ];
 
 
