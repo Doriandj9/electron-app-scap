@@ -60,6 +60,7 @@ function events(){
 }
 }
 async function runCaja() {
+    const buttonReport = document.getElementById('btn-report');
     const date= new Date();
     const formatDate = Intl.DateTimeFormat('es',{
         year: 'numeric',
@@ -70,20 +71,35 @@ async function runCaja() {
     const {ident,data} = await window.modelConsulta.all();
 
     let caja = 0;
-
-    data.forEach(d => {
+    let html = '';
+    data.forEach((d,i) => {
+        console.log(d);
         const {dataValues} = d;
         caja += parseFloat(dataValues.ingreso)
+
+        html += `
+        <tr>
+            <td>${i + 1}</td>
+            <td>${dataValues.id_casa == '00-00' ? 'Caja Inicial': dataValues.id_casa}</td>
+            <td>${dataValues.fecha}</td>
+            <td>${parseFloat(dataValues.ingreso + dataValues.egreso).toFixed(2)}</td>
+            <td>${parseFloat(dataValues.egreso ?? 0).toFixed(2)}</td>
+            <td>${dataValues.fecha_compra ?? '0000-00-00'}</td>
+            <td>${parseFloat(dataValues.ingreso).toFixed(2)}</td>
+        </tr>
+        `;
     });
 
-    const html  = `
+    html  += `
     <tr>
-        <td>1</td>
-        <td>${formatDate(date)}</td>
-        <td>${parseFloat(caja).toFixed(2)}$</td>
+        <td colspan="7" align="end">
+        <strong>Total de Caja: </strong> <span>${parseFloat(caja).toFixed(2)}$</span>
+        </td>
     </tr>
     `;
     document.querySelector('tbody').innerHTML = html;
+    document.getElementById('f-c').textContent = formatDate(date);
+    buttonReport.addEventListener('click',generarReporte);
 } 
 
 function runDom() {
@@ -176,3 +192,37 @@ async function presentarDatos(valor){
     }
 }
 
+function generarReporte(e) {
+    // let nombre = prompt('Ingrese un nombre para el archivo a descargar');
+      const report = document.getElementById('reporte');
+      const resT = document.querySelector('table');
+      const table = resT.cloneNode(true);
+      report.append(table);
+      report.classList.remove('d-none');
+        html2pdf()
+        .set({magin: 1,
+              filename: 'Factura de Agua',
+              image: {
+                  type: 'jpeg',
+                  quality: 0.98
+              },
+              html2canvas: {
+                  scale: 3,
+                  letterRendering: true,
+              },
+              jsPDF: {
+                  unit: "in",
+                  format: "a4",
+                  orientation: 'portrait'
+              },
+              pagebreak: { mode: ['css', 'legacy']
+            }
+        })
+        .from(report)
+        .save()
+        .catch(e => console.log(e))
+        .finally(() => {
+            report.classList.add('d-none');
+        })
+        .then(alert('A continuación se procedera a descargar la factura de cobro de agua potable en formato [pdf]'));
+}

@@ -54,6 +54,11 @@ class Compras {
     async manejoCaja(data){
         const {precio} = data;
         const cobros = new Cobros;
+        const time = new Date();
+        const format = Intl.NumberFormat('es',{
+            minimumIntegerDigits: 2
+        }).format
+        const date = `${time.getFullYear()}-${format((time.getMonth() + 1))}-${format(time.getDate())}`
 
         let results = await sequelize.query(`
         SELECT id, ingreso FROM cobros WHERE ingreso >= ?;
@@ -79,20 +84,29 @@ class Compras {
             let updates = [];
             let ingreso = 0;
             results.forEach((res) => {
+                let egreso = 0;
+                let tempIng = priceInt;
                 const {id,ingreso:dbPrice} = res;
                 if(priceInt === 0){
                     return;
                 }
+                if(dbPrice >= tempIng){
+                    egreso = dbPrice;
+                }
+                egreso = dbPrice <= tempIng ? dbPrice : tempIng;
                 priceInt = parseFloat(priceInt) - parseFloat(dbPrice);
-
                 if(priceInt < 0){
                     priceInt = priceInt * - 1;
                     ingreso = priceInt;
                     priceInt = 0;
+                    egreso = tempIng;
+                    
                 }
 
                 const dataSend = {id: id, data:{
-                    ingreso: ingreso
+                    ingreso: ingreso,
+                    egreso: egreso,
+                    fecha_compra: date
                 }} 
                 updates.push(dataSend);              
             })
@@ -107,7 +121,9 @@ class Compras {
 
         const res = parseFloat(priceDB) - parseFloat(precio);
         const dataSend = {id: id, data:{
-            ingreso: res
+            ingreso: res,
+            egreso: precio,
+            fecha_compra: date
         } } 
 
         const {ident,mensaje} = await cobros.update(dataSend)

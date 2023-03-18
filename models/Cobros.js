@@ -2,7 +2,7 @@ const {sequelize} = require('./db/conection');
 const {DataTypes, QueryTypes, Sequelize} = require('sequelize');
 class Cobros  {
     #model;
-    #attibutes = ['id','ingreso','fecha','acometida','detalle','id_casa'];
+    #attibutes = ['id','ingreso','fecha','acometida','detalle','egreso','fecha_compra','id_casa'];
     constructor() {
         this.#model = sequelize.define('cobros',{
             id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement:true},
@@ -10,6 +10,8 @@ class Cobros  {
             fecha: DataTypes.DATE,
             acometida: DataTypes.BOOLEAN,
             detalle: DataTypes.STRING,
+            egreso: DataTypes.DOUBLE,
+            fecha_compra: DataTypes.DATE,
             id_casa: DataTypes.STRING
         },{
             timestamps: false,

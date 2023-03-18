@@ -5,14 +5,22 @@ border-top-0 border-end-0 border-start-0 ps-4">Consulta sobro la caja total de l
     por la recaudación de cobro de agua potable y todos los movimientos de este como las acometidas y
     compras.
 </p>
+
 <h4 class="mt-2 h5 border border-1 border-dark border-opacity-25 pb-2
 border-top-0 border-end-0 border-start-0 ps-4">Detalles de la caja presupuestaria.</h4>
-<table class="table table-bordered border-primary">
+<button class="btn d-flex align-items-center gap-2 bg-black mb-4" id="btn-report">
+  <i class="ms-Icon ms-Icon--PDF text-white"></i> <span class="ms-Button-label text-white">Generar Informe</span>
+</button>
+<table class="table table-bordered border-primary" id="table-info">
     <thead>
       <tr>
         <th>Nº</th>
-        <th>Fecha de consulta</th>
-        <th>Valor de caja</th>
+        <th>Código de casa</th>
+        <th>Fecha(pago/acometida)</th>
+        <th>Valor del pago </th>
+        <th>Efectivo extraido</th>
+        <th>Fecha compra</th>
+        <th>Valor neto</th>
       </tr>
     </thead>
     <tbody>
@@ -23,3 +31,13 @@ border-top-0 border-end-0 border-start-0 ps-4">Detalles de la caja presupuestari
       </tr>
     </tbody>
   </table>
+
+  <div id="reporte" class="d-none p-4">
+      <h3 class="text-center">
+        Informe de actividades de caja
+      </h3>
+      <div>
+        <strong>Fecha: </strong> <span id="f-c"></span>
+      </div>
+
+  </div>

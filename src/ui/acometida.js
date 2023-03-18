@@ -207,7 +207,8 @@ async function enviarDatos(e) {
         ingreso: parseFloat(price.value.trim()),
         acometida: true,
         detalle: textarea.value.trim(),
-        id_casa: codigo
+        id_casa: codigo,
+        egreso: 0
     }
 
     const {ident,mensaje} = await window.modelCobro.addCobro(data);
