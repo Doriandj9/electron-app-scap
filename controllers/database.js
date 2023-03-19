@@ -9,6 +9,7 @@ const Compras = require("../models/Compras");
 const Sectores = require("../models/Sectores");
 const Usuarios = require("../models/Usuarios");
 const fs = require('fs');
+const Historial = require('../models/Historial');
 
 async function backup() {
     const casas = new Casas;
@@ -19,6 +20,7 @@ async function backup() {
     const compras = new Compras;
     const sectores = new Sectores;
     const usuarios = new Usuarios;
+    const historial = new Historial;
 
     const {data:dataCasa} = await casas.all();
     const {data:dataCategorias} = await categorias.all();
@@ -28,6 +30,7 @@ async function backup() {
     const {data:dataCompras} = await compras.all();
     const {data:dataSectores} = await sectores.all();
     const {data:dataUsuarios} = await usuarios.all();
+    const {data:dataHistorial} = await historial.all();
     fs.readFile(path.join(__dirname,'./../models/db/template.sql'),'utf-8',(err,data) => {
         if(err){
             throw err;
@@ -112,7 +115,8 @@ async function backup() {
         dataCobros.forEach(data => {
             const {dataValues} = data;
             querysCobros += dataValues.id +',' + dataValues.ingreso + ',' + `'${dataValues.fecha}',` +
-            dataValues.acometida + ',' + `'${dataValues.detalle}',` + `'${dataValues.id_casa}'` +
+            dataValues.acometida + ',' + `'${dataValues.detalle}',` + dataValues.egreso + `'${dataValues.fecha_compra}',` +
+            `'${dataValues.id_casa}'` +
             '),(';
         });
         querysCobros = querysCobros.slice(0,-2);
@@ -139,6 +143,27 @@ async function backup() {
         let autoIncCompras = dataCompras.length + 1;
         dataReplace = dataReplace.replace('%inc-compras%',autoIncCompras);
         dataReplace = dataReplace.replace('%data-compras%',querysCompras);
+
+        //datos historial
+
+        let querysHistorial = 'INSERT INTO `historials` VALUES (';
+        if(dataHistorial.length === 0) {
+            querysHistorial = '';
+        }
+        dataHistorial.forEach(data => {
+            const {dataValues} = data;
+            querysHistorial += dataValues.id + 
+            ',' + `'${dataValues.id_casa}'` + ',' + `'${dataValues.tipo}',` + dataValues.pago  + ',' +
+            `'${dataValues.fecha_pago}',` + dataValues.egreso + ',' + `'${dataValues.detalle_compra}',` +
+            `'${dataValues.fecha_compra}',` + dataValues.ingreso
+            + '),(';
+        });
+        querysHistorial = querysHistorial.slice(0,-2);
+        querysHistorial += ';'
+        let autoHist = dataHistorial.length + 1;
+        dataReplace = dataReplace.replace('%inc-historial%',autoHist);
+        dataReplace = dataReplace.replace('%data-historial%',querysHistorial);
+
 
 
         //datos sectores

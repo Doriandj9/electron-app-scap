@@ -141,6 +141,8 @@ CREATE TABLE `cobros` (
   `fecha` date NOT NULL,
   `acometida` tinyint(1) DEFAULT NULL,
   `detalle` varchar(250) DEFAULT NULL,
+  `egreso` double DEFAULT NULL,
+  `fecha_compra` date DEFAULT NULL,
   `id_casa` varchar(15) NOT NULL,
   PRIMARY KEY (`id`)
 ) AUTO_INCREMENT=%inc-cobros%;
@@ -206,6 +208,37 @@ CREATE TABLE `egresos` (
 LOCK TABLES `egresos` WRITE;
 /*!40000 ALTER TABLE `egresos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `egresos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `historials`
+--
+
+DROP TABLE IF EXISTS `historials`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `historials` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_casa` varchar(15) NOT NULL,
+  `tipo` varchar(55) NOT NULL,
+  `pago` double NOT NULL,
+  `fecha_pago` date NOT NULL,
+  `egreso` double NOT NULL,
+  `detalle_compra` varchar(250) NOT NULL,
+  `fecha_compra` date NOT NULL,
+  `ingreso` double NOT NULL,
+  PRIMARY KEY (`id`)
+) AUTO_INCREMENT=%inc-historial%;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `historials`
+--
+
+LOCK TABLES `historials` WRITE;
+/*!40000 ALTER TABLE `historials` DISABLE KEYS */;
+%data-historial%
+/*!40000 ALTER TABLE `historials` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
