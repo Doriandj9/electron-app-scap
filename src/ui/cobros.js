@@ -15,6 +15,11 @@ function run () {
         en el menu principal para poder realizar los cobros.`,'Regresar');
         return;
     }
+    if(!localStorage.valorMora){
+        new Notificacion(`Por favor ingrese el valor de la mora 
+        para que el sistema cobre los atrasos de los pagos.`,'Regresar');
+        return;
+    }
 
     let SearchBoxElements = document.querySelectorAll(".ms-SearchBox");
     for (let i = 0; i < SearchBoxElements.length; i++) {

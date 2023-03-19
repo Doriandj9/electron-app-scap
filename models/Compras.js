@@ -1,6 +1,7 @@
 const {sequelize} = require('./db/conection');
 const {DataTypes,QueryTypes} = require('sequelize');
 const Cobros = require('./Cobros');
+const Historial = require('./Historial');
 class Compras {
     #model;
     #attibutes = ['id','nombre','precio','cantidad'];
@@ -59,9 +60,9 @@ class Compras {
             minimumIntegerDigits: 2
         }).format
         const date = `${time.getFullYear()}-${format((time.getMonth() + 1))}-${format(time.getDate())}`
-
+        const historial = new Historial();
         let results = await sequelize.query(`
-        SELECT id, ingreso FROM cobros WHERE ingreso >= ?;
+        SELECT id, ingreso, id_casa,acometida,fecha FROM cobros WHERE ingreso >= ?;
             `,{
                 replacements: [precio],
                 type: QueryTypes.SELECT
@@ -69,7 +70,7 @@ class Compras {
 
         if(results.length === 0){
             results = await sequelize.query(`
-            SELECT id, ingreso FROM cobros WHERE ingreso < ?;
+            SELECT id, ingreso, id_casa,acometida,fecha FROM cobros WHERE ingreso < ?;
             `,{
                 replacements: [precio],
                 type: QueryTypes.SELECT
@@ -83,10 +84,12 @@ class Compras {
             let priceInt = precio;
             let updates = [];
             let ingreso = 0;
+            let historialUpda = [];
+            const dataCobros = data;
             results.forEach((res) => {
                 let egreso = 0;
                 let tempIng = priceInt;
-                const {id,ingreso:dbPrice} = res;
+                const {id,ingreso:dbPrice,id_casa,acometida,fecha:fecha_pago} = res;
                 if(priceInt === 0){
                     return;
                 }
@@ -107,17 +110,33 @@ class Compras {
                     ingreso: ingreso,
                     egreso: egreso,
                     fecha_compra: date
-                }} 
+                }}
+                const dataHistorial = {
+                    id_casa: id_casa,
+                    tipo: acometida ? 'Acomentida' : 'Pago de Agua',
+                    pago: dbPrice,
+                    fecha_pago: fecha_pago,
+                    egreso:egreso,
+                    detalle_compra: dataCobros.cantidad + ' '+ dataCobros.nombre,
+                    fecha_compra: date,
+                    ingreso: ingreso
+                }
+                
+                historialUpda.push(dataHistorial);
                 updates.push(dataSend);              
             })
             for(let com of updates){
                 await cobros.update(com);
             }
+            for(let his of historialUpda){
+                await historial.insert(his);
+            }
+
             const respuesta = await this.insert(data);
             return respuesta;
         }
 
-        const {id,ingreso:priceDB} = results[0];
+        const {id,ingreso:priceDB,id_casa,acometida,fecha:fecha_pago} = results[0];
 
         const res = parseFloat(priceDB) - parseFloat(precio);
         const dataSend = {id: id, data:{
@@ -125,7 +144,17 @@ class Compras {
             egreso: precio,
             fecha_compra: date
         } } 
-
+        const dataHistorial = {
+            id_casa: id_casa,
+            tipo: acometida ? 'Acomentida' : 'Pago de Agua',
+            pago: priceDB,
+            fecha_pago: fecha_pago,
+            egreso:precio,
+            detalle_compra: data.cantidad + ' '+ data.nombre,
+            fecha_compra: date,
+            ingreso: res
+        }
+        await historial.insert(dataHistorial);
         const {ident,mensaje} = await cobros.update(dataSend)
 
         if(!ident){

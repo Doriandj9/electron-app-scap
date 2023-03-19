@@ -6,6 +6,7 @@
   "productName": "SCAP",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "electron .",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",

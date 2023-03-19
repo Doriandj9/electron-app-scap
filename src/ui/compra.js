@@ -90,17 +90,23 @@ async function listarCompras() {
     const {ident,data} = await window.modelCompra.all();
     console.log(ident,data);
     let html ='';
+    let precioTotal = 0;
     data.forEach((d,i) => {
         const {dataValues:dato} = d;
         html += `
         <tr>
             <td>${i + 1}</td>
             <td>${dato.nombre}</td>
-            <td>${dato.precio}$</td>
             <td>${dato.cantidad}</td>
+            <td>${dato.precio}$</td>
         </tr>
         `;
+        precioTotal += dato.precio;
     });
+    html += `<tr>
+        <td colspan="4" align="end"><strong>Total: </strong> ${parseFloat(precioTotal).toFixed(2)}$</td>
+    </tr>`;
+
     if(data.length === 0){
         html = `<tr>
         <td colspan="4" class="text-center">

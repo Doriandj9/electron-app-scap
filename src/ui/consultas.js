@@ -61,19 +61,96 @@ function events(){
 }
 async function runCaja() {
     const buttonReport = document.getElementById('btn-report');
+    const btnCambio = document.getElementById('cambio');
+    const btnCaja = document.getElementById('caja-inf')
+    const resT = document.querySelector('table');
     const date= new Date();
     const formatDate = Intl.DateTimeFormat('es',{
         year: 'numeric',
         month: 'long',
         day: 'numeric'
     }).format;
-
     const {ident,data} = await window.modelConsulta.all();
+    const {identH,data:dataH} = await window.modelHistorial.all(); 
+    btnCambio.addEventListener('click',() => cambioTable(dataH,resT))
+    btnCaja.addEventListener('click',() => cambioCaja(data,resT));
+    let caja = 0;
+    let html = '';
+    data.forEach((d,i) => {
+        const {dataValues} = d;
+        caja += parseFloat(dataValues.ingreso)
+
+        html += `
+        <tr>
+            <td>${i + 1}</td>
+            <td>${dataValues.id_casa == '00-00' ? 'Caja Inicial': dataValues.id_casa}</td>
+            <td>${dataValues.fecha}</td>
+            <td>${parseFloat(dataValues.ingreso).toFixed(2)}</td>
+        </tr>
+        `;
+    });
+
+    html  += `
+    <tr>
+        <td colspan="9" align="end">
+        <strong>Total de Caja: </strong> <span>${parseFloat(caja).toFixed(2)}$</span>
+        </td>
+    </tr>
+    `;
+    document.querySelector('tbody').innerHTML = html;
+    document.getElementById('f-c').textContent = formatDate(date);
+    buttonReport.addEventListener('click',generarReporte);
+} 
+
+function cambioTable(data,table) {
+    const thead = table.querySelector('thead');
+    thead.innerHTML = `<tr>
+        <th>Nº</th>
+        <th>Código de casa</th>
+        <th>Tipo de pago</th>
+        <th>Valor del pago </th>
+        <th>Fecha de pago</th>
+        <th>Efectivo extraido</th>
+        <th>Detalle de la compra</th>
+        <th>Fecha compra</th>
+        <th>Valor neto</th>
+    </tr>`;
+
+    let html = '';
+    data.forEach((d,i) => {
+        const {dataValues} = d;
+        html += `
+        <tr>
+            <td>${i + 1}</td>
+            <td>${dataValues.id_casa == '00-00' ? 'Caja Inicial': dataValues.id_casa}</td>
+            <td>${dataValues.tipo}</td>
+            <td>${parseFloat(dataValues.pago).toFixed(2)}</td>
+            <td>${dataValues.fecha_pago}</td>
+            <td>${parseFloat(dataValues.egreso ?? 0).toFixed(2)}</td>
+            <td>${dataValues.detalle_compra}</td>
+            <td>${dataValues.fecha_compra}</td>
+            <td>${parseFloat(dataValues.ingreso).toFixed(2)}</td>
+        </tr>
+        `;
+    });
+
+    table.querySelector('tbody').innerHTML = html;
+}
+function cambioCaja(data,table) {
+    const thead = table.querySelector('thead');
+    thead.innerHTML = `<tr>
+        <th>Nº</th>
+        <th>Código de casa</th>
+        <th>Fecha(pago/acometida)</th>
+        <th>Valor del pago </th>
+        <th>Efectivo extraido</th>
+        <th>Fecha compra</th>
+        <th>Valor neto</th>
+    </tr>`;
 
     let caja = 0;
     let html = '';
     data.forEach((d,i) => {
-        console.log(d);
         const {dataValues} = d;
         caja += parseFloat(dataValues.ingreso)
 
@@ -92,15 +169,14 @@ async function runCaja() {
 
     html  += `
     <tr>
-        <td colspan="7" align="end">
+        <td colspan="9" align="end">
         <strong>Total de Caja: </strong> <span>${parseFloat(caja).toFixed(2)}$</span>
         </td>
     </tr>
     `;
-    document.querySelector('tbody').innerHTML = html;
-    document.getElementById('f-c').textContent = formatDate(date);
-    buttonReport.addEventListener('click',generarReporte);
-} 
+
+    table.querySelector('tbody').innerHTML = html;
+}
 
 function runDom() {
  

@@ -7,6 +7,7 @@ const CasasCategorias = require('./../models/CasasCategorias');
 const Cobros = require('./../models/Cobros');
 const Compras = require('../models/Compras');
 const Usuarios = require('./../models/Usuarios');
+const Historial = require('./../models/Historial');
 const { backup } = require('./database');
 const generateReporte = require('./reportes');
 
@@ -19,7 +20,7 @@ const casasCategorias = new CasasCategorias;
 const cobros = new Cobros;
 const compras = new Compras;
 const usuarios = new Usuarios;
-
+const historial = new Historial;
 
 ipcMain.handle('op:category.add',async (e,data) => {
     return await categoria.insert(data);
@@ -99,6 +100,9 @@ ipcMain.handle('op:database.backup', async () => {
     return await backup();
 })
 
+ipcMain.handle('op:historial.all', async () => {
+    return await historial.all();
+})
 ipcMain.handle('op:reporte', (e,data) => {
     return  generateReporte(data);
 })

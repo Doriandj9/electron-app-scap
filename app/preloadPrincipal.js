@@ -42,6 +42,9 @@ contextBridge.exposeInMainWorld('modelCompra',{
 contextBridge.exposeInMainWorld('database',{
     backup(){return ipcRenderer.invoke('op:database.backup')}
 })
+contextBridge.exposeInMainWorld('modelHistorial',{
+    all(){return ipcRenderer.invoke('op:historial.all')}
+})
 contextBridge.exposeInMainWorld('reporte',{
     reporte(data){return ipcRenderer.invoke('op:reporte',data)}
 })
