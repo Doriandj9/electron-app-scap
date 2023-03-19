@@ -132,11 +132,13 @@ DROP TABLE IF EXISTS `cobros`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cobros` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `ingreso` double NOT NULL,
   `fecha` date NOT NULL,
   `acometida` tinyint(1) DEFAULT NULL,
   `detalle` varchar(250) DEFAULT NULL,
+  `egreso` double DEFAULT NULL,
+  `fecha_compra` date DEFAULT NULL,
   `id_casa` varchar(15) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

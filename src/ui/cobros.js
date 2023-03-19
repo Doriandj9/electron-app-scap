@@ -341,7 +341,7 @@ function colocarDatosIniciales({
     names.innerHTML = nombres;
     lastnames.innerHTML = apellidos;
 
-    consumo.innerHTML = consumoFinal + 'm3';
+    consumo.innerHTML = consumoFinal == 0 ? 'No Aplica': consumoFinal + 'm3';
     totalF.innerHTML = total + '$';
 
     date2.textContent = ilt(dateTime);
@@ -351,7 +351,7 @@ function colocarDatosIniciales({
     names2.innerHTML = nombres;
     lastnames2.innerHTML = apellidos;
 
-    consumo2.innerHTML = consumoFinal + 'm3';
+    consumo2.innerHTML = consumoFinal == 0 ? 'No Aplica': consumoFinal + 'm3';
     totalF2.innerHTML = total + '$';
 
     if(partes){
