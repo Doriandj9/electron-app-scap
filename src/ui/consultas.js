@@ -109,7 +109,6 @@ function cambioTable(data,table) {
         <th>Código de casa</th>
         <th>Tipo de pago</th>
         <th>Valor del pago </th>
-        <th>Fecha de pago</th>
         <th>Efectivo extraido</th>
         <th>Detalle de la compra</th>
         <th>Fecha compra</th>
@@ -125,7 +124,6 @@ function cambioTable(data,table) {
             <td>${dataValues.id_casa == '00-00' ? 'Caja Inicial': dataValues.id_casa}</td>
             <td>${dataValues.tipo}</td>
             <td>${parseFloat(dataValues.pago).toFixed(2)}</td>
-            <td>${dataValues.fecha_pago}</td>
             <td>${parseFloat(dataValues.egreso ?? 0).toFixed(2)}</td>
             <td>${dataValues.detalle_compra}</td>
             <td>${dataValues.fecha_compra}</td>
@@ -139,13 +137,10 @@ function cambioTable(data,table) {
 function cambioCaja(data,table) {
     const thead = table.querySelector('thead');
     thead.innerHTML = `<tr>
-        <th>Nº</th>
-        <th>Código de casa</th>
-        <th>Fecha(pago/acometida)</th>
-        <th>Valor del pago </th>
-        <th>Efectivo extraido</th>
-        <th>Fecha compra</th>
-        <th>Valor neto</th>
+    <th>Nº</th>
+    <th>Código de casa (planilla/acometida)</th>
+    <th>Fecha</th>
+    <th>Valor neto</th>
     </tr>`;
 
     let caja = 0;
@@ -159,9 +154,6 @@ function cambioCaja(data,table) {
             <td>${i + 1}</td>
             <td>${dataValues.id_casa == '00-00' ? 'Caja Inicial': dataValues.id_casa}</td>
             <td>${dataValues.fecha}</td>
-            <td>${parseFloat(dataValues.ingreso + dataValues.egreso).toFixed(2)}</td>
-            <td>${parseFloat(dataValues.egreso ?? 0).toFixed(2)}</td>
-            <td>${dataValues.fecha_compra ?? '0000-00-00'}</td>
             <td>${parseFloat(dataValues.ingreso).toFixed(2)}</td>
         </tr>
         `;
