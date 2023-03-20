@@ -233,7 +233,8 @@ async function presentacionDatos(codigoCasa){
     document.getElementById('container-info').innerHTML = html;
     const comisionTable = {
         ingreso: total,
-        id_casa: codigo
+        id_casa: codigo,
+        ingreso_inicial: total
     };
     activarReporte(codigo,comisionTable);
     colocarDatosIniciales({
@@ -544,7 +545,8 @@ async function cobrarPartes(e,modal,datos) {
     colocarDatosIniciales(datos,true);
     const comisionTable = {
         ingreso: monto,
-        id_casa: codigo
+        id_casa: codigo,
+        ingreso_inicial: monto
     };
     const {ident,mensaje} = await window.modelCobro.addCobro(comisionTable);
     if(ident) {

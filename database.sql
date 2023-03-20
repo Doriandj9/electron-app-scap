@@ -139,6 +139,7 @@ CREATE TABLE `cobros` (
   `detalle` varchar(250) DEFAULT NULL,
   `egreso` double DEFAULT NULL,
   `fecha_compra` date DEFAULT NULL,
+  `ingreso_inicial` double DEFAULT NULL,
   `id_casa` varchar(15) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -291,4 +292,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-19 17:04:56
+-- Dump completed on 2023-03-20 17:39:27

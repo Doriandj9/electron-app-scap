@@ -85,6 +85,7 @@ async function runCaja() {
             <td>${i + 1}</td>
             <td>${dataValues.id_casa == '00-00' ? 'Caja Inicial': dataValues.id_casa}</td>
             <td>${dataValues.fecha}</td>
+            <td>${parseFloat(dataValues.ingreso_inicial).toFixed(2)}</td>
             <td>${parseFloat(dataValues.ingreso).toFixed(2)}</td>
         </tr>
         `;
@@ -144,6 +145,7 @@ function cambioCaja(data,table) {
     <th>Nº</th>
     <th>Código de casa (planilla/acometida)</th>
     <th>Fecha</th>
+    <th>Valor Inicial</th>
     <th>Valor neto</th>
     </tr>`;
 
@@ -158,6 +160,7 @@ function cambioCaja(data,table) {
             <td>${i + 1}</td>
             <td>${dataValues.id_casa == '00-00' ? 'Caja Inicial': dataValues.id_casa}</td>
             <td>${dataValues.fecha}</td>
+            <td>${parseFloat(dataValues.ingreso_inicial).toFixed(2)}</td>
             <td>${parseFloat(dataValues.ingreso).toFixed(2)}</td>
         </tr>
         `;

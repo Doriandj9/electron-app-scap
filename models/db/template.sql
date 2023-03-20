@@ -143,6 +143,7 @@ CREATE TABLE `cobros` (
   `detalle` varchar(250) DEFAULT NULL,
   `egreso` double DEFAULT NULL,
   `fecha_compra` date DEFAULT NULL,
+  `ingreso_inicial` double DEFAULT NULL,
   `id_casa` varchar(15) NOT NULL,
   PRIMARY KEY (`id`)
 ) AUTO_INCREMENT=%inc-cobros%;
