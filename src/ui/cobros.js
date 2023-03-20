@@ -57,7 +57,7 @@ async function busquedaDatos(e) {
 async function presentacionDatos(codigoCasa){
     const {ident,data} = await window.modelCobro.infoCobro(codigoCasa);
     if(!ident){
-        alerta('alert-danger', 'A ocurrido un erro al realizar la busqueda, por favor intentelo mas tarde');
+        alerta('alert-danger', 'Ha ocurrido un error al realizar la busqueda, por favor intentelo mas tarde');
         return;
     }
 
@@ -296,7 +296,7 @@ function activarReporte(codigo,dataComision,deudaoption=false) {
                 presentacionDatos(codigo);
             }
         })
-        .then(alert('A continuación se procedera a descargar la factura de cobro de agua potable en formato [pdf]'));
+        .then(alert('A continuación se procedera a descargar el comprobante de cobro de agua potable en formato [pdf]'));
     }
 }
 
