@@ -45,12 +45,12 @@ async function busquedaDatos(e) {
 async function presentacionDatos(codigoCasa){
     const {ident,data} = await window.modelCobro.infoCobro(codigoCasa);
     if(!ident){
-        alerta('alert-danger', 'A ocurrido un erro al realizar la busqueda, por favor intentelo mas tarde');
+        alerta('alert-danger', 'Ha ocurrido un error al realizar la búsqueda, por favor intente mas tarde');
         return;
     }
 
     if(!data){
-        new Notificacion('No existe la casa con el codigo <stron>' + codigoCasa + '</strong>','Regresar');
+        new Notificacion('No existe la casa con el código <stron>' + codigoCasa + '</strong>','Regresar');
         return;
     }
     const {

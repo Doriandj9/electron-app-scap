@@ -106,10 +106,8 @@ function cambioTable(data,table) {
     const thead = table.querySelector('thead');
     thead.innerHTML = `<tr>
         <th>Nº</th>
-        <th>Código de casa</th>
-        <th>Tipo de pago</th>
-        <th>Valor del pago </th>
-        <th>Fecha de pago</th>
+        <th>Detalle de egreso</th>
+        <th>efectivo disponible</th>
         <th>Efectivo extraido</th>
         <th>Detalle de la compra</th>
         <th>Fecha compra</th>
@@ -119,13 +117,17 @@ function cambioTable(data,table) {
     let html = '';
     data.forEach((d,i) => {
         const {dataValues} = d;
+        let tipoM = '';
+        if(dataValues.id_casa !== '00-00'){
+            tipoM = dataValues.tipo === 'Pago de Agua' ? 'Planilla' :'Acometida' ;
+        }else {
+            tipoM = 'Caja Inicial'
+        }
         html += `
         <tr>
             <td>${i + 1}</td>
-            <td>${dataValues.id_casa == '00-00' ? 'Caja Inicial': dataValues.id_casa}</td>
-            <td>${dataValues.tipo}</td>
+            <td>${tipoM}</td> 
             <td>${parseFloat(dataValues.pago).toFixed(2)}</td>
-            <td>${dataValues.fecha_pago}</td>
             <td>${parseFloat(dataValues.egreso ?? 0).toFixed(2)}</td>
             <td>${dataValues.detalle_compra}</td>
             <td>${dataValues.fecha_compra}</td>
@@ -139,13 +141,10 @@ function cambioTable(data,table) {
 function cambioCaja(data,table) {
     const thead = table.querySelector('thead');
     thead.innerHTML = `<tr>
-        <th>Nº</th>
-        <th>Código de casa</th>
-        <th>Fecha(pago/acometida)</th>
-        <th>Valor del pago </th>
-        <th>Efectivo extraido</th>
-        <th>Fecha compra</th>
-        <th>Valor neto</th>
+    <th>Nº</th>
+    <th>Código de casa (planilla/acometida)</th>
+    <th>Fecha</th>
+    <th>Valor neto</th>
     </tr>`;
 
     let caja = 0;
@@ -159,9 +158,6 @@ function cambioCaja(data,table) {
             <td>${i + 1}</td>
             <td>${dataValues.id_casa == '00-00' ? 'Caja Inicial': dataValues.id_casa}</td>
             <td>${dataValues.fecha}</td>
-            <td>${parseFloat(dataValues.ingreso + dataValues.egreso).toFixed(2)}</td>
-            <td>${parseFloat(dataValues.egreso ?? 0).toFixed(2)}</td>
-            <td>${dataValues.fecha_compra ?? '0000-00-00'}</td>
             <td>${parseFloat(dataValues.ingreso).toFixed(2)}</td>
         </tr>
         `;
@@ -264,7 +260,7 @@ async function presentarDatos(valor){
         `;
         document.querySelector('tbody').innerHTML = html;
     }else{
-        alerta('alert-danger','No se econtro datos en en esas fechas establecidas.',2500);
+        alerta('alert-danger','No se encontraron datos en las fechas establecidas',2500);
     }
 }
 
@@ -277,7 +273,7 @@ function generarReporte(e) {
       report.classList.remove('d-none');
         html2pdf()
         .set({magin: 1,
-              filename: 'Factura de Agua',
+              filename: 'Informe',
               image: {
                   type: 'jpeg',
                   quality: 0.98
@@ -300,5 +296,5 @@ function generarReporte(e) {
         .finally(() => {
             report.classList.add('d-none');
         })
-        .then(alert('A continuación se procedera a descargar la factura de cobro de agua potable en formato [pdf]'));
+        .then(alert('A continuación se procederá a descargar el informe de agua potable en formato [pdf]'));
 }
