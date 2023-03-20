@@ -115,7 +115,8 @@ async function backup() {
         dataCobros.forEach(data => {
             const {dataValues} = data;
             querysCobros += dataValues.id +',' + dataValues.ingreso + ',' + `'${dataValues.fecha}',` +
-            dataValues.acometida + ',' + `'${dataValues.detalle}',` + dataValues.egreso + `'${dataValues.fecha_compra}',` +
+            dataValues.acometida + ',' + `'${dataValues.detalle}',` + dataValues.egreso + `'${dataValues.fecha_compra}',` 
+            + dataValues.ingreso_inicial + ','
             `'${dataValues.id_casa}'` +
             '),(';
         });

@@ -51,7 +51,8 @@ function init() {
         const valor = document.getElementById('valor-caja')
             const data = {
                 ingreso: parseFloat(valor.value.trim()),
-                id_casa: '00-00'
+                id_casa: '00-00',
+                ingreso_inicial: parseFloat(valor.value.trim())
             }
             await window.modelCobro.addCobro(data);
         }
